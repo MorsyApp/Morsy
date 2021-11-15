@@ -58,7 +58,8 @@ input{
 .message-container{
     position: absolute;
     width: 100%;
-    height: calc(100% - 5vh);
+    height: calc(100% - 5vh) !important;
+    overflow-y: scroll;
 }
 
 .usr-msg{
@@ -100,7 +101,7 @@ input{
     padding: 1vh 2vh;
     border-radius: 1.5vh;
     color: #ffffff;
-    text-align: right;
+    text-align: left;
 }
 
 .peer-msg p{
