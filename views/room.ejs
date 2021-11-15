@@ -11,11 +11,33 @@
     </script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-    <p class="message-history"></p>
-    <input type="text" class="message-box">
-    <button class="send-btn">Send</button>
+    
+    <div class="message-view">
+        <div class="inp-container"><input type="text" class="message-box"><svg class="send-btn" width="30" height="26" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M27.9943 11.1196C29.585 11.821 29.585 14.0781 27.9943 14.7795L3.78067 25.457C1.95917 26.2602 0.2104 24.1989 1.29968 22.5326L6.8489 14.0439C7.28352 13.3791 7.28352 12.52 6.8489 11.8552L1.29968 3.36648C0.2104 1.7002 1.95918 -0.361066 3.78068 0.442158L27.9943 11.1196Z" fill="#E5E5E5"/>
+        </svg></div>
+
+        <div class="message-container">
+
+            <div class="msg-container">
+                <div class="usr-msg">
+                    <p>Hi whats up </p>
+                    <a>aaaa-bbbb-cccc-dddd</a>
+                </div>
+            </div><br>
+
+            <div class="msg-container">
+                <div class="peer-msg">
+                    <p>Nothing how about you?</p>
+                    <a>1111-2222-3333-4444</a>
+                </div>
+            </div>
+        </div>
+            
+    </div>
 </body>
 </html>

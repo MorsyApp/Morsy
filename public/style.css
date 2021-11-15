@@ -1,0 +1,112 @@
+:root{
+    --side-color: #181818;
+    --bg-color: #222222; 
+    --secondary-color: #4A4A4A;
+    --accent-color: #695CBC;
+}
+
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--side-color);
+}
+
+.message-view{
+    position: absolute;
+    left: 30vh;
+    height: 100%;
+    background-color: var(--bg-color);
+    right: 0;
+
+}
+
+input{
+    position: absolute;
+    width: calc(100% - 10vh);
+    padding-left: 2vh;
+    border-radius: 1000vh;
+    height: 80%;
+    outline: none;
+    font-size: 1.5vh;
+    color: #ffffff;
+    bottom: 0.5vh;
+    border: none;
+    background-color: var(--secondary-color);
+    margin-left: 1vh;
+}
+
+.inp-container{
+    position: absolute;
+    width: 100%;
+    height: 5vh;
+    bottom: 0;
+    background-color: #343434;
+}
+
+.send-btn{
+    position: absolute;
+    right: 2.5vh;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4vh;
+}
+
+.message-container{
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 5vh);
+}
+
+.usr-msg{
+    margin-right: 2vh;
+    margin-left: auto;
+    width: fit-content;
+    height: fit-content;
+    max-width: 60%;
+    background-color: var(--accent-color);
+    padding: 1vh 2vh;
+    border-radius: 1.5vh;
+    color: #ffffff;
+    text-align: right;
+}
+
+.usr-msg p{
+    font-size: 2vh;
+}
+
+.usr-msg a{
+    font-size: 1.5vh;
+}
+
+.msg-container{
+    width: 100% !important;
+    height: fit-content;
+    margin-bottom: 1vh;
+    margin-top: auto;
+
+}
+
+.peer-msg{
+    margin-left: 2vh;
+    margin-right: auto;
+    width: fit-content;
+    height: fit-content;
+    max-width: 60%;
+    background-color: var(--secondary-color);
+    padding: 1vh 2vh;
+    border-radius: 1.5vh;
+    color: #ffffff;
+    text-align: right;
+}
+
+.peer-msg p{
+    font-size: 2vh;
+}
+
+.peer-msg a{
+    font-size: 1.5vh;
+}

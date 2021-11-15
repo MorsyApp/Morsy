@@ -19,12 +19,12 @@ socket.on("user-connected", userId => {
     console.log(userId + " Joined")
     connections.push(userId)
     conn = peer.connect(connections[0])
-    setTimeout(()=>{sendBtn.click()},200)
+    setTimeout(()=>{conn.send(userId + ":" + "^^^°°°~~~")},200)
 })
 
 
 sendBtn.addEventListener("click", ()=>{
-    conn.send(userId + ":" + "^^^°°°~~~")
+    conn.send(userId + ":" + "hi")
 })
 
 peer.on('connection', function(connection) {
