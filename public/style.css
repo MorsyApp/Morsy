@@ -1,7 +1,7 @@
 :root{
-    --side-color: #181818;
-    --bg-color: #222222; 
-    --secondary-color: #4A4A4A;
+    --side-color: #0C1228;
+    --bg-color: #131B36; 
+    --secondary-color: #4C5983;
     --accent-color: #695CBC;
 }
 
@@ -44,7 +44,7 @@ input{
     width: 100%;
     height: 5vh;
     bottom: 0;
-    background-color: #343434;
+    background-color: #1F2A4E;
 }
 
 .send-btn{
@@ -72,7 +72,7 @@ input{
     padding: 1vh 2vh;
     border-radius: 1.5vh;
     color: #ffffff;
-    text-align: right;d
+    text-align: right;
 }
 
 .usr-msg p{
