@@ -1,0 +1,72 @@
+@font-face {
+    font-family: Roboto;
+    src: url('Roboto-Regular.ttf');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: Roboto;
+}
+
+body{
+    background-color: #131B36;
+    overflow: hidden;
+}
+
+.waves{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40vh;
+}
+
+.waves path{
+    position: absolute;
+    bottom: 0;
+    width: 10vh;
+}
+
+.morsy-logo{
+    position: absolute;
+    width: 60vh;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.logo-txt{
+    position: absolute;
+    color: #FFFFFF;
+    top: calc(30% + 13vh);
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 3.4vh;
+}
+
+a{
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 1.7vh 4vh;
+    background-color: #695CBC;
+    border-radius: 1vh;
+    font-size: 2vh;
+}
+
+.github{
+    position: absolute;
+    top: calc(30% + 25vh);
+    left: calc(50% + 15vh);
+    transform: translate(-50%,-50%);
+
+}
+
+.create-room{
+    position: absolute;
+    top: calc(30% + 25vh);
+    left: calc(50% - 15vh);
+    transform: translate(-50%,-50%);
+
+}

@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Roboto;
+    src: url('Roboto-Regular.ttf');
+}
+
 :root{
     --side-color: #0C1228;
     --bg-color: #131B36; 
@@ -9,6 +14,7 @@
     padding: 0;
     margin:0;
     box-sizing: border-box;
+    font-family: Roboto;
 }
 
 body{
