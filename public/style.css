@@ -72,11 +72,13 @@ input{
     padding: 1vh 2vh;
     border-radius: 1.5vh;
     color: #ffffff;
-    text-align: right;
+    text-align: right;d
 }
 
 .usr-msg p{
     font-size: 2vh;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .usr-msg a{
@@ -106,6 +108,8 @@ input{
 
 .peer-msg p{
     font-size: 2vh;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .peer-msg a{

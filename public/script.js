@@ -21,12 +21,13 @@ socket.on("user-connected", userId => {
     console.log(userId + " Joined")
     connections.push(userId)
     conn = peer.connect(connections[0])
-    setTimeout(()=>{conn.send(userId + ":" + "Connection Succesful")},200)
+    setTimeout(connSuccess,500);
 })
 
 
 sendBtn.addEventListener("click", ()=>{
     conn.send(userId + ":" + messageBox.value)
+    createUsrMsg(messageBox.value, userId)
     messageBox.value = "";
 })
 
@@ -77,4 +78,8 @@ function createPeerMsg(msg, usrId){
     messageContainer.appendChild(msgContainer);
     msgContainer.scrollIntoView();
 
+}
+
+function connSuccess(){
+    conn.send(userId + ":" + "Connection Succesful")
 }
