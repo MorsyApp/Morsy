@@ -27,8 +27,10 @@ socket.on("user-connected", userId => {
 
 
 sendBtn.addEventListener("click", ()=>{
-    conn.send(userId + ":" + "text/" + messageBox.value)
-    createUsrMsg(messageBox.value, userId)
+    if(messageBox.value != ""){    
+        conn.send(userId + ":" + "text/" + messageBox.value)
+        createUsrMsg(messageBox.value, userId)
+    }
     messageBox.value = "";
 })
 
