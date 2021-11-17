@@ -27,11 +27,7 @@ socket.on("user-connected", userId => {
 
 
 sendBtn.addEventListener("click", ()=>{
-    if(messageBox.value != ""){    
-        conn.send(userId + ":" + "text/" + messageBox.value)
-        createUsrMsg(messageBox.value, userId)
-    }
-    messageBox.value = "";
+    Send();
 })
 
 peer.on('connection', function(connection) {
@@ -89,3 +85,17 @@ function createPeerMsg(msg, usrId){
 function connSuccess(){
     conn.send(userId + ":" + "text/"  + "Connection Successful")
 }
+
+function Send(){
+    if(messageBox.value != ""){    
+        conn.send(userId + ":" + "text/" + messageBox.value)
+        createUsrMsg(messageBox.value, userId)
+    }
+    messageBox.value = "";
+}
+
+messageBox.addEventListener("keydown", (e)=>{
+    if(e.keyCode==13){
+        Send();
+    }
+})
