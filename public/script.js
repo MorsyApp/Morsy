@@ -21,21 +21,25 @@ socket.on("user-connected", userId => {
     console.log(userId + " Joined")
     connections.push(userId)
     conn = peer.connect(connections[0])
+    createPeerMsg("Connection Successful", connections[0])
     setTimeout(connSuccess,500);
 })
 
 
 sendBtn.addEventListener("click", ()=>{
-    conn.send(userId + ":" + messageBox.value)
+    conn.send(userId + ":" + "text/" + messageBox.value)
     createUsrMsg(messageBox.value, userId)
     messageBox.value = "";
 })
 
 peer.on('connection', function(connection) {
     connection.on('data', function(data){
-        newUserId = data.substring(0, data.indexOf(":"))
+        processedData = data.substring(0, data.indexOf("/"))
+        newUserId = processedData.substring(0, processedData.indexOf(":"))
+        dataType = processedData.replace(newUserId + ":","")
+
         conn = peer.connect(newUserId)
-        createPeerMsg(data.replace(":","").replace(newUserId,""),newUserId);
+        createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),newUserId);
     });
   });
 
@@ -81,5 +85,5 @@ function createPeerMsg(msg, usrId){
 }
 
 function connSuccess(){
-    conn.send(userId + ":" + "Connection Succesful")
+    conn.send(userId + ":" + "text/"  + "Connection Successful")
 }
