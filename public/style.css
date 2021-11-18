@@ -35,6 +35,7 @@ input{
     position: absolute;
     width: calc(100% - 9vh);
     padding-left: 2vh;
+    padding-right: 3vh;
     border-radius: 1vh;
     height: 80%;
     outline: none;
@@ -139,4 +140,18 @@ input{
 
 .peer-msg a{
     font-size: 1.5vh;
+}
+
+.usr-msg img{
+    width: 40%;
+    border-radius: 1vh;
+}
+
+.file-btn{
+    position: absolute;
+    width: 2.2vh;
+    height: 2.2vh;
+    top: 50%;
+    right: 9vh;
+    transform: translateY(-50%);
 }

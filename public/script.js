@@ -2,6 +2,8 @@ const socket = io("/")
 const sendBtn = document.querySelector(".send-btn");
 const messageBox = document.querySelector(".message-box");
 const messageContainer = document.querySelector(".message-container");
+const fileBtn = document.querySelector(".file-btn");
+const fileInp = document.querySelector(".file-input");
 const peer = new Peer(undefined, {
     host: '/',
     port: '3001'
@@ -37,10 +39,54 @@ peer.on('connection', function(connection) {
         dataType = processedData.replace(newUserId + ":","")
 
         conn = peer.connect(newUserId)
-        createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),newUserId);
+        if(dataType == "text"){
+            createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),newUserId);
+        }
+
+        else if(dataType == "img"){
+            createPeerImg(data.replace(newUserId + ":","").replace(dataType + "/",""),newUserId);
+        }
+        
     });
   });
 
+function createUsrImg(dataUrl, usrId){
+    var msgContainer = document.createElement("div");
+    var usrMsg = document.createElement("div");
+    var msgImg = document.createElement("img");
+    var usrName = document.createElement("a");
+
+    msgContainer.className += ("msg-container");
+    usrMsg.className += ("usr-msg");
+
+    msgImg.src = dataUrl;
+    usrName.innerHTML = usrId;
+
+    usrMsg.appendChild(msgImg);
+    usrMsg.appendChild(usrName);
+    msgContainer.appendChild(usrMsg);
+    messageContainer.appendChild(msgContainer);
+    msgContainer.scrollIntoView();
+}
+
+function createPeerImg(dataUrl, usrId){
+    var msgContainer = document.createElement("div");
+    var usrMsg = document.createElement("div");
+    var msgImg = document.createElement("img");
+    var usrName = document.createElement("a");
+
+    msgContainer.className += ("msg-container");
+    usrMsg.className += ("peer-msg");
+
+    msgImg.src = dataUrl;
+    usrName.innerHTML = usrId;
+
+    usrMsg.appendChild(msgImg);
+    usrMsg.appendChild(usrName);
+    msgContainer.appendChild(usrMsg);
+    messageContainer.appendChild(msgContainer);
+    msgContainer.scrollIntoView();
+}
 
 function createUsrMsg(msg, usrId){
     var msgContainer = document.createElement("div");
@@ -94,8 +140,30 @@ function Send(){
     messageBox.value = "";
 }
 
+function SendFile(dataUrl){
+    conn.send(userId+":"+"img/"+dataUrl)
+    createUsrImg(dataUrl,userId)
+}
+
 messageBox.addEventListener("keydown", (e)=>{
     if(e.keyCode==13){
         Send();
     }
+})
+
+fileBtn.addEventListener("click", ()=>{
+    fileInp.click();
+})
+
+fileInp.addEventListener("change", ()=>{
+    const reader = new FileReader();
+    reader.readAsDataURL(fileInp.files[0]);
+    reader.addEventListener("load", ()=>{
+
+        SendFile(reader.result)
+        fileInp.value = "";
+        
+    })
+
+
 })
