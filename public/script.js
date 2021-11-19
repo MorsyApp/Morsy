@@ -151,7 +151,7 @@ function SendFile(dataUrl){
     createUsrImg(dataUrl,userId)
 }
 
-messageBox.addEventListener("keydown", (e)=>{
+messageBox.addEventListener("keyup", (e)=>{
     if(e.keyCode==13){
         Send();
     }
