@@ -135,7 +135,7 @@ function createPeerMsg(msg, usrId){
 }
 
 function connSuccess(){
-    conn.send(userId + ":" + "text/"  + "Connection Successful")
+    conn.send(userId + ":" + "text/"  + "Connection Successful!")
 }
 
 function Send(){
