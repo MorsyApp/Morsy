@@ -37,7 +37,7 @@ sendBtn.addEventListener("click", ()=>{
 })
 
 
-//peerjs managing connections to the room
+//peerjs managing connnections and data sent from other users
 peer.on('connection', function(connection) {
     connection.on('data', function(data){
         processedData = data.substring(0, data.indexOf("/"))
@@ -56,6 +56,7 @@ peer.on('connection', function(connection) {
     });
   });
 
+//creates an user message bubble with an image from the data url specified 
 function createUsrImg(dataUrl, usrId){
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
@@ -75,6 +76,7 @@ function createUsrImg(dataUrl, usrId){
     msgContainer.scrollIntoView();
 }
 
+//creates a peer message bubble with an image from the data url specified 
 function createPeerImg(dataUrl, usrId){
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
@@ -94,6 +96,7 @@ function createPeerImg(dataUrl, usrId){
     msgContainer.scrollIntoView();
 }
 
+//creates user message bubble 
 function createUsrMsg(msg, usrId){
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
@@ -114,6 +117,7 @@ function createUsrMsg(msg, usrId){
 
 }
 
+//creates peer message bubble
 function createPeerMsg(msg, usrId){
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
@@ -134,10 +138,12 @@ function createPeerMsg(msg, usrId){
 
 }
 
+//sends the connection successful message
 function connSuccess(){
     conn.send(userId + ":" + "text/"  + "Connection Successful!")
 }
 
+//sends the connetent of the message box and clears it
 function Send(){
     if(messageBox.value != ""){    
         conn.send(userId + ":" + "text/" + messageBox.value)
@@ -146,21 +152,25 @@ function Send(){
     messageBox.value = "";
 }
 
+//sends the dataurl for images
 function SendFile(dataUrl){
     conn.send(userId+":"+"img/"+dataUrl)
     createUsrImg(dataUrl,userId)
 }
 
+//detects when enter is pressed while input is selected
 messageBox.addEventListener("keyup", (e)=>{
     if(e.keyCode==13){
         Send();
     }
 })
 
+//detects when the file button is clicked
 fileBtn.addEventListener("click", ()=>{
     fileInp.click();
 })
 
+//detects when the user selected a file and sends it
 fileInp.addEventListener("change", ()=>{
     const reader = new FileReader();
     reader.readAsDataURL(fileInp.files[0]);
