@@ -1,3 +1,5 @@
+///vars
+
 const socket = io("/")
 const sendBtn = document.querySelector(".send-btn");
 const messageBox = document.querySelector(".message-box");
@@ -9,6 +11,8 @@ const peer = new Peer(undefined, {
     port: '3001'
 })
 
+
+//empty variables
 var userId = undefined;
 var connections = []
 var conn = undefined;
@@ -18,7 +22,7 @@ peer.on("open", id =>{
     socket.emit("join-room", ROOM_ID, id)
 })
 
-
+//socket user management
 socket.on("user-connected", userId => {
     console.log(userId + " Joined")
     connections.push(userId)
@@ -32,6 +36,8 @@ sendBtn.addEventListener("click", ()=>{
     Send();
 })
 
+
+//peerjs managing connections to the room
 peer.on('connection', function(connection) {
     connection.on('data', function(data){
         processedData = data.substring(0, data.indexOf("/"))
