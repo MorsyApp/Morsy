@@ -1,6 +1,6 @@
 # Morsy
 
-annonymous chatting website
+More Decentralized, More Private, Morsy
 
 
 in progress
