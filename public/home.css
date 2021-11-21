@@ -7,31 +7,58 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
     font-family: Roboto;
 }
 
 body{
-    background-color: #131B36;
-    overflow: hidden;
-}
+    background-color: #131B36;}
+
 
 .waves{
-    position: absolute;
-    bottom: 0;
+    top: 1vh;
     width: 100%;
-    height: 40vh;
 }
 
-.waves path{
+.site-bottom-container{
     position: absolute;
-    bottom: 0;
-    width: 10vh;
+    top: calc(30% + 30vh);
+    width: 100%;
+    height: fit-content;
+}
+
+.info-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: -1vh;
+    width:100%;
+    height: fit-content;
+    background-color:#695CBC;
+}
+
+.txt-container{
+    width: 30vh;
+    color: #ffffff;
+    border: 0.1vh solid #ffffff;
+    padding: 2vh;
+    border-radius: 1vh;
+    height: 37vh;
+}
+
+.txt-container h1{
+    margin-bottom: 2vh;
+    font-size: 3vh;
+}
+
+.txt-container p{
+    font-size: 1.7vh;
 }
 
 .morsy-logo{
     position: absolute;
     width: 60vh;
+    max-width: 100%;
     top: 30%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -70,3 +97,6 @@ a{
     transform: translate(-50%,-50%);
 
 }
+
+
+
