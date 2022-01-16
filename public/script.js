@@ -24,7 +24,7 @@ peer.on("open", id =>{
 
 //socket user management
 socket.on("user-connected", userId => {
-    console.log(userId + " Joined")
+    console.log(userId + " Joined lol ")
     connections.push(userId)
     conn = peer.connect(connections[0])
     createPeerMsg("Connection Successful", connections[0])
