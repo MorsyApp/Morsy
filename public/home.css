@@ -44,6 +44,7 @@ body{
     padding: 2vh;
     border-radius: 1vh;
     height: 37vh;
+    margin-bottom: 3vh;
 }
 
 .txt-container h1{
@@ -58,7 +59,6 @@ body{
 .morsy-logo{
     position: absolute;
     width: 60vh;
-    max-width: 100%;
     top: 30%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -69,8 +69,11 @@ body{
     color: #FFFFFF;
     top: calc(30% + 13vh);
     left: 50%;
+    width: 60vh;
+    text-align: center;
     transform: translate(-50%,-50%);
-    font-size: 3.4vh;
+    font-size: 3.5vh;
+    display: inline;
 }
 
 a{
@@ -100,3 +103,9 @@ a{
 
 
 
+
+@media screen and (max-width: 70vh){
+    .morsy-logo{
+        width: 100%;
+    }
+}
