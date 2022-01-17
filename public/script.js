@@ -9,6 +9,7 @@ const fileInp = document.querySelector(".file-input");
 const peer = new Peer(undefined, {
     host: '/',
     port: '3001'
+    config: { iceServers: [{url:'stun:stunserver.org'}, {url: 'turn:numb.viagenie.ca',credential: 'muazkh', username: 'webrtc@live.com'},] },
 })
 
 
