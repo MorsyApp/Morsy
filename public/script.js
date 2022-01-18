@@ -6,7 +6,7 @@ const messageContainer = document.querySelector(".message-container");
 const fileBtn = document.querySelector(".file-btn");
 const fileInp = document.querySelector(".file-input");
 const peer = new Peer(undefined, {
-    host: 'http://172.104.205.29/',
+    host: '172.104.205.29/',
     port: '3001'
 })
 
