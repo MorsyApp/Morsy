@@ -1,5 +1,4 @@
 ///vars
-
 const socket = io("/")
 const sendBtn = document.querySelector(".send-btn");
 const messageBox = document.querySelector(".message-box");
@@ -16,6 +15,13 @@ const peer = new Peer(undefined, {
 var userId = undefined;
 var connections = []
 var conn = undefined;
+
+
+let aliasNamesStr = "Factitive Comedogenic Seriatim Atpatruus Scutigerous FeticCuisse Cuissepanx Sociable Dosiology Quangocracy ChondromPanary Panarygohst FurgesOuzel Ouzelmachr Kleenebok LilbabKnosp Knospderblt Galeated Bombycine Trautonium Fuscous Achaenocarp LickingJubate Jubatetburn Homuncule PindusWheal Wheallan006 Periculous Logocracy WillthebDelta Deltalar51 Munting BoemMurage Muragekinn12345 Carnifex Sententia Yogibogeybox ShikiAnear Anearver26 Hereticide Illeist Themas6Murrey Murreyrecy_ Chaplet The_azTrema Tremameshh12 SleetBraird Brairddev246 Theometry Eremology Mane2Sorrel Sorrelne3_14 Orchidomania Mistetch KimagCapric Capricster1701 Doloriferous SaneinYen Yenlarch Agowilt Incentivize RockerdAppui Appuide27 Enallage";
+let aliasNames = aliasNamesStr.split(" ");
+const randomIndex = Math.floor(Math.random() * aliasNames.length);
+
+let givenAlias = false;
 
 peer.on("open", id =>{
     userId = id;
@@ -44,13 +50,32 @@ peer.on('connection', function(connection) {
         newUserId = processedData.substring(0, processedData.indexOf(":"))
         dataType = processedData.replace(newUserId + ":","")
 
+
+        let userIdToSend = newUserId; // a variable that specifies what uid to use when recieving a msg
+
+
         conn = peer.connect(newUserId)
         if(dataType == "text"){
-            createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),newUserId);
+            
+
+            let msgToRecieve = data.replace(newUserId + ":","").replace(dataType + "/","");
+            
+            if (givenAlias) { // check if an alias has been given
+                userIdToSend = aliasNames[randomIndex]; // set the uid to send to one of the random aliases
+            }
+            
+            createPeerMsg(msgToRecieve,userIdToSend); // create msg bubble with msg recieved
         }
 
         else if(dataType == "img"){
-            createPeerImg(data.replace(newUserId + ":","").replace(dataType + "/",""),newUserId);
+
+            let imgToSend = data.replace(newUserId + ":","").replace(dataType + "/","");
+
+            if (givenAlias) { // same thing
+                userIdToSend = aliasNames[randomIndex];
+            }
+
+            createPeerImg(imgToSend,userIdToSend);
         }
         
     });
@@ -58,6 +83,8 @@ peer.on('connection', function(connection) {
 
 //creates an user message bubble with an image from the data url specified 
 function createUsrImg(dataUrl, usrId){
+
+    //create html elements
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
     var msgImg = document.createElement("img");
@@ -78,6 +105,8 @@ function createUsrImg(dataUrl, usrId){
 
 //creates a peer message bubble with an image from the data url specified 
 function createPeerImg(dataUrl, usrId){
+
+    // create html elements
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
     var msgImg = document.createElement("img");
@@ -140,14 +169,19 @@ function createPeerMsg(msg, usrId){
 
 //sends the connection successful message
 function connSuccess(){
-    conn.send(userId + ":" + "text/"  + "Connection Successful!")
+    conn.send(userId + ":" + "text/"  + "Connection Successful")
 }
 
 //sends the connetent of the message box and clears it
 function Send(){
-    if(messageBox.value != ""){    
-        conn.send(userId + ":" + "text/" + messageBox.value)
-        createUsrMsg(messageBox.value, userId)
+    if(messageBox.value != ""){ 
+        
+        if (checkForCommands(messageBox.value) == "givealias") { //checks for any givealias command in the message
+            givenAlias = true; // if yes, record that the alias has been given
+        }
+        
+        conn.send(userId + ":" + "text/" + messageBox.value);
+        createUsrMsg(messageBox.value, "Me");
     }
     messageBox.value = "";
 }
@@ -155,7 +189,7 @@ function Send(){
 //sends the dataurl for images
 function SendFile(dataUrl){
     conn.send(userId+":"+"img/"+dataUrl)
-    createUsrImg(dataUrl,userId)
+    createUsrImg(dataUrl,"Me")
 }
 
 //detects when enter is pressed while input is selected
@@ -183,3 +217,19 @@ fileInp.addEventListener("change", ()=>{
 
 
 })
+
+//function to check for any commands in the passed msg param
+function checkForCommands(msg) {
+    if (msg.startsWith("/")) {
+        
+        let cmd = msg.replace("/", "");
+
+        if (cmd == "givealias") {
+            return cmd;
+        }
+
+        return cmd;
+    }
+    
+    return "";
+}
