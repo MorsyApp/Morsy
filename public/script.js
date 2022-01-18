@@ -17,7 +17,7 @@ var connections = []
 var conn = undefined;
 
 
-let aliasNamesStr = "Factitive Comedogenic Seriatim Atpatruus Scutigerous FeticCuisse Cuissepanx Sociable Dosiology Quangocracy ChondromPanary Panarygohst FurgesOuzel Ouzelmachr Kleenebok LilbabKnosp Knospderblt Galeated Bombycine Trautonium Fuscous Achaenocarp LickingJubate Jubatetburn Homuncule PindusWheal Wheallan006 Periculous Logocracy WillthebDelta Deltalar51 Munting BoemMurage Muragekinn12345 Carnifex Sententia Yogibogeybox ShikiAnear Anearver26 Hereticide Illeist Themas6Murrey Murreyrecy_ Chaplet The_azTrema Tremameshh12 SleetBraird Brairddev246 Theometry Eremology Mane2Sorrel Sorrelne3_14 Orchidomania Mistetch KimagCapric Capricster1701 Doloriferous SaneinYen Yenlarch Agowilt Incentivize RockerdAppui Appuide27 Enallage";
+let aliasNamesStr = "FactitiveSquid19 ComedogenicPotato420 Seriatim69 AtpatruusComb17 ScutigerousPiano39 FeticCuisse10 Cuissepanx180 SociableGlue120 Dosiology_ QuangocracyBop4 ChondromPanary93 Panarygohst16 FurgesOuzel11 Ouzelmachr05 Kleenebok02 LilbabKnosp09 Knospderblt08 Galeated007 Bombycine121 TrautoniumPaperist81 Fuscouscous182 Achaenocarp245 LickingJubate109 Jubatetburn638 Homuncule125 PindusWheal999 Wheallan006 PericulousSeven197 LogocraticMouse94 WillthebDelta111 Deltalar51 Munting222 BoemMurage675 Muragekinn12345 Carnifex Sententia Yogibogeybox ShikiAnear14 Anearver26 Hereticide Illeist42 Themas6Murrey Murreyrecy_ Chaplet The_azTrema Tremameshh12 SleetBraird Brairddev246 Theometry37 EremologyYoyo19 Mane2Sorrel Sorrelne3_14 Orchidomania Mistetch KimagCapric Capricster1701 Doloriferous SaneinYen Yenlarch Agowilt Incentivize RockerdAppui Appuide27 Enallage";
 let aliasNames = aliasNamesStr.split(" ");
 const randomIndex = Math.floor(Math.random() * aliasNames.length);
 
