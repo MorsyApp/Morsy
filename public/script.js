@@ -13,7 +13,7 @@ const peer = new Peer(undefined, {
 
 //empty variables
 var userId = undefined;
-var connections = []
+var connections = [];
 var conn = undefined;
 
 
