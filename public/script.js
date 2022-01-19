@@ -6,7 +6,7 @@ const messageContainer = document.querySelector(".message-container");
 const fileBtn = document.querySelector(".file-btn");
 const fileInp = document.querySelector(".file-input");
 const peer = new Peer(undefined, {
-    host: '172.104.205.29/',
+    host: '127.0.0.1', // change to 172.104.205.29 to make morsy.cc work
     port: '3001'
 })
 
