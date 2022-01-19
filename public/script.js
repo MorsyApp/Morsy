@@ -10,7 +10,6 @@ const peer = new Peer(undefined, {
     port: '3001'
 })
 
-
 //empty variables
 var userId = undefined;
 var connections = [];
@@ -180,16 +179,38 @@ function Send(){
             givenAlias = true; // if yes, record that the alias has been given
         }
         
-        conn.send(userId + ":" + "text/" + messageBox.value);
-        createUsrMsg(messageBox.value, "Me");
+        if (conn) {
+            try {
+                conn.send(userId + ":" + "text/" + messageBox.value);
+                createUsrMsg(messageBox.value, "Me");
+                
+            } catch (error) {
+                console.log(error.message)
+            }
+
+        } 
+        else {
+            console.log("Connection Error")
+            console.log(conn)
+        }
+        
     }
     messageBox.value = "";
 }
 
 //sends the dataurl for images
 function SendFile(dataUrl){
-    conn.send(userId+":"+"img/"+dataUrl)
-    createUsrImg(dataUrl,"Me")
+
+    if (conn) {
+        try {
+            conn.send(userId+":"+"img/"+dataUrl);
+            createUsrImg(dataUrl,"Me");
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+
+    }
 }
 
 //detects when enter is pressed while input is selected
