@@ -94,31 +94,14 @@ function connSuccess(){
 //sends the connetent of the message box and clears it
 function Send(){
     if(messageBox.value != ""){ 
-        
+        console.log(messageBox.value);
         
         if (conn) {
-            try {
-                if (messageBox.value != "changename") {
-                    if (userIdToSend == userId) {
-                        conn.send(userId + ":" + "text/" + messageBox.value);
-                        createUsrMsg(messageBox.value, "Me");
-
-                    }
-                    else {
-                        conn.send(userIdToSend + ":" + "text/" + messageBox.value);
-                        createUsrMsg(messageBox.value, "Me");
-                    }
-
-                }
-                else {
-                    conn.send(userId + ":" + "changename/" + messageBox.value.split(" ")); //send a changename request
-                    createUsrMsg("Changed your name", "Server");
-
-                }
-                
-            } catch (error) {
-                console.log(error.message);
+            if (userIdToSend == userId) {
+                conn.send(userIdToSend + ":" + "text/" + messageBox.value);
+                createUsrMsg(messageBox.value, "Me");
             }
+            
 
         } 
         else {
@@ -146,10 +129,13 @@ function SendFile(dataUrl){
 }
 
 function renameSelf(nameToChange) {
-    if (!nameToChange && nameToChange != "") {
-        userIdToSend = nameToChange;
-    }
+    setTimeout(()=>{conn.send(userId + ":" + "changenamereq/" + nameToChange)}, 500);
+    console.log("q");
 }
+function renamePeer() {
+    return;
+}
+
 
 //function to check for any commands in the passed msg param
 function checkForCommands(msg) {
@@ -203,7 +189,7 @@ function processData() {
 
         createPeerImg(imgToSend,userIdToRecieve);
     }
-    else if(dataType == "changename") {
+    else if(dataType == "changenamereq") {
         console.log("recieved changename request");
     }
 }
