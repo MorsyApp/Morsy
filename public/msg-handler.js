@@ -12,7 +12,7 @@ function createUsrImg(dataUrl, usrId){
     usrMsg.className += ("usr-msg");
 
     msgImg.src = dataUrl;
-    usrName.innerHTML = usrId;
+    usrName.innerHTML = "Me";
 
     usrMsg.appendChild(msgImg);
     usrMsg.appendChild(usrName);
@@ -34,7 +34,7 @@ function createPeerImg(dataUrl, usrId){
     usrMsg.className += ("peer-msg");
 
     msgImg.src = dataUrl;
-    usrName.innerHTML = usrId;
+    usrName.innerHTML = peerUsername;
 
     usrMsg.appendChild(msgImg);
     usrMsg.appendChild(usrName);
@@ -54,7 +54,7 @@ function createUsrMsg(msg, usrId){
     usrMsg.className += ("usr-msg");
 
     msgTxt.innerHTML = msg;
-    usrName.innerHTML = usrId;
+    usrName.innerHTML = "Mea";
 
     usrMsg.appendChild(msgTxt);
     usrMsg.appendChild(usrName);
@@ -75,7 +75,7 @@ function createPeerMsg(msg, usrId){
     usrMsg.className += ("peer-msg");
 
     msgTxt.innerHTML = msg;
-    usrName.innerHTML = usrId;
+    usrName.innerHTML = peerUsername;
 
     usrMsg.appendChild(msgTxt);
     usrMsg.appendChild(usrName);
@@ -93,22 +93,9 @@ function connSuccess(){
 
 //sends the connetent of the message box and clears it
 function Send(){
-    if(messageBox.value != ""){ 
-        console.log(messageBox.value);
-        
-        if (conn) {
-            if (userIdToSend == userId) {
-                conn.send(userIdToSend + ":" + "text/" + messageBox.value);
-                createUsrMsg(messageBox.value, "Me");
-            }
-            
-
-        } 
-        else {
-            console.log("Connection Error");
-            console.log(conn);
-        }
-        
+    if(messageBox.value != ""){    
+        conn.send(userId + ":" + "text/" + messageBox.value)
+        createUsrMsg(messageBox.value, userId)
     }
     messageBox.value = "";
 }
@@ -119,7 +106,7 @@ function SendFile(dataUrl){
     if (conn) {
         try {
             conn.send(userId+":"+"img/"+dataUrl);
-            createUsrImg(dataUrl,"Me");
+            createUsrImg(dataUrl,"Mea");
             
         } catch (error) {
             console.log(error.message);
@@ -128,14 +115,18 @@ function SendFile(dataUrl){
     }
 }
 
-function renameSelf(nameToChange) {
-    setTimeout(()=>{conn.send(userId + ":" + "changenamereq/" + nameToChange)}, 500);
-    console.log("q");
-}
-function renamePeer() {
-    return;
-}
+function SendUsrName(newName) {
+    if (conn) {
+        try {
+            conn.send(userId+":"+"name/"+newName);
+            console.log("sent name")
+            
+        } catch (error) {
+            console.log(error.message);
+        }
 
+    }
+}
 
 //function to check for any commands in the passed msg param
 function checkForCommands(msg) {
@@ -157,7 +148,7 @@ function onUserConnected() {
     connections.push(userId);
     try {
         conn = peer.connect(connections[0]);
-        createPeerMsg("Connection Successful", connections[0]);
+        createPeerMsg("Connection Successful", peerUsername);
         setTimeout(connSuccess,500);
     } catch (error) {
         console.log(error.message);
@@ -167,30 +158,19 @@ function processData() {
     processedData = data.substring(0, data.indexOf("/"))
     newUserId = processedData.substring(0, processedData.indexOf(":"))
     dataType = processedData.replace(newUserId + ":","")
-
-    if (!userIdToRecieve) { // if undefined ...
-        userIdToRecieve = newUserId; // set uid to default uid
-    }
-
-
     conn = peer.connect(newUserId) // connect to the peer via the default name
-    if(dataType == "text"){
-        
 
-        let msgToRecieve = data.replace(newUserId + ":","").replace(dataType + "/",""); // message recieved    
-        createPeerMsg(msgToRecieve,useridToRecieve); // create msg bubble with msg recieved
-    }
-
-    else if(dataType == "img"){
-
-        let imgToSend = data.replace(newUserId + ":","").replace(dataType + "/","");
-
-
-
-        createPeerImg(imgToSend,userIdToRecieve);
-    }
-    else if(dataType == "changenamereq") {
-        console.log("recieved changename request");
+    switch (dataType) {
+        case "text":
+            createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
+            console.log("ssss")
+            break;
+        case "img":
+            createPeerImg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
+            break;
+        case "name":
+            peerUsername = data.replace(newUserId + ":","").replace(dataType + "/","");
+            break;
     }
 }
 function onFileInp() {

@@ -57,6 +57,35 @@ body{
     border-radius: 0.4vh;
     background-color: var(--accent-color);
 }
+
+.username {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 4vh;
+    transform: translate(-50%,-50%);
+}
+
+.username-inp{
+    color: #ffffff;
+    outline: none;
+    border: 0.1vh solid var(--secondary-color);
+    text-align: center;
+    padding: 1vh;
+    border-radius: 0.5vh;
+    background-color: #00000000;
+    font-size: 2vh;
+}
+
+.edit-name-btn{
+    padding: 1vh 2vh;
+    color: #ffffff;
+    font-size: 2vh;
+    cursor: default;
+    border-radius: 0.4vh;
+    background-color: var(--accent-color);
+}
+
 .message-view{
     position: absolute;
     width: 100%;
@@ -67,7 +96,9 @@ body{
 
 }
 
-input{
+
+
+.inp-container input{
     position: absolute;
     width: calc(100% - 9vh);
     padding-left: 2vh;

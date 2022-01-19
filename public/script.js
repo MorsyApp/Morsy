@@ -5,6 +5,8 @@ const messageBox = document.querySelector(".message-box");
 const messageContainer = document.querySelector(".message-container");
 const fileBtn = document.querySelector(".file-btn");
 const fileInp = document.querySelector(".file-input");
+const usernameInp = document.querySelector(".username-inp");
+const editNameBtn = document.querySelector(".edit-name-btn");
 const peer = new Peer(undefined, {
     host: '172.104.205.29',
     port: '3001'
@@ -16,16 +18,14 @@ const peer = new Peer(undefined, {
 
 
 //empty variables
+
+let peerUsername = "Samuel Morse";
+let editingName = false;
 var userId = undefined;
 var connections = [];
 var conn = undefined;
-let userIdToSend = undefined;
-let userIdToRecieve = undefined;
 
 
-let aliasNamesStr = "FactitiveSquid19 ComedogenicPotato420 Seriatim69 AtpatruusComb17 ScutigerousPiano39 FeticCuisse10 Cuissepanx180 SociableGlue120 Dosiology_ QuangocracyBop4 ChondromPanary93 Panarygohst16 FurgesOuzel11 Ouzelmachr05 Kleenebok02 LilbabKnosp09 Knospderblt08 Galeated007 Bombycine121 TrautoniumPaperist81 Fuscouscous182 Achaenocarp245 LickingJubate109 Jubatetburn638 Homuncule125 PindusWheal999 Wheallan006 PericulousSeven197 LogocraticMouse94 WillthebDelta111 Deltalar51 Munting222 BoemMurage675 Muragekinn12345 Carnifex Sententia Yogibogeybox ShikiAnear14 Anearver26 Hereticide Illeist42 Themas6Murrey Murreyrecy_ Chaplet The_azTrema Tremameshh12 SleetBraird Brairddev246 Theometry37 EremologyYoyo19 Mane2Sorrel Sorrelne3_14 Orchidomania Mistetch KimagCapric Capricster1701 Doloriferous SaneinYen Yenlarch Agowilt Incentivize RockerdAppui Appuide27 Enallage";
-let aliasNames = aliasNamesStr.split(" ");
-const randomIndex = Math.floor(Math.random() * aliasNames.length);
 
 let givenAlias = false;
 
@@ -39,7 +39,7 @@ socket.on("user-connected", userId => {
     console.log(userId + " Joined lol ")
     connections.push(userId)
     conn = peer.connect(connections[0])
-    createPeerMsg("Connection Successful", connections[0])
+    createPeerMsg("Connection Successful", peerUsername)
     setTimeout(connSuccess,500);
 })
 
@@ -55,9 +55,7 @@ peer.on('connection', function(connection) {
         processedData = data.substring(0, data.indexOf("/"))
         newUserId = processedData.substring(0, processedData.indexOf(":"))
         dataType = processedData.replace(newUserId + ":","")
-
-
-        let userIdToSend = newUserId; // a variable that specifies what uid to use when recieving a msg
+        // a variable that specifies what uid to use when recieving a msg
 
 
         conn = peer.connect(newUserId)
@@ -66,22 +64,20 @@ peer.on('connection', function(connection) {
 
             let msgToRecieve = data.replace(newUserId + ":","").replace(dataType + "/","");
             
-            if (givenAlias) { // check if an alias has been given
-                userIdToSend = aliasNames[randomIndex]; // set the uid to send to one of the random aliases
-            }
             
-            createPeerMsg(msgToRecieve,userIdToSend); // create msg bubble with msg recieved
+            createPeerMsg(msgToRecieve,peerUsername); // create msg bubble with msg recieved
         }
 
         else if(dataType == "img"){
 
             let imgToSend = data.replace(newUserId + ":","").replace(dataType + "/","");
 
-            if (givenAlias) { // same thing
-                userIdToSend = aliasNames[randomIndex];
-            }
 
-            createPeerImg(imgToSend,userIdToSend);
+            createPeerImg(imgToSend,peerUsername);
+        }
+
+        else if(dataType == "name"){
+            peerUsername = data.replace(newUserId + ":","").replace(dataType + "/","");
         }
         
     });
@@ -224,6 +220,22 @@ fileInp.addEventListener("change", ()=>{
 
 })
 
+editNameBtn.addEventListener("click", () =>{
+    if(!editingName){
+        editNameBtn.innerHTML = "Save";
+        usernameInp.disabled = false;
+        usernameInp.focus();
+        editingName = true;
+    }
+    else{
+        editNameBtn.innerHTML = "Edit";
+        usernameInp.disabled = true;
+        SendUsrName(usernameInp.value);
+        editingName = false;
+    }
+})
+
+
 //function to check for any commands in the passed msg param
 function checkForCommands(msg) {
     if (msg.startsWith("/")) {
@@ -240,6 +252,4 @@ function checkForCommands(msg) {
     return "";
 }
 
-document.querySelector("rename-btn").addEventListener("click", () => {
-    renameSelf("sheet");
-});
+
