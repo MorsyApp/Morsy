@@ -3,4 +3,4 @@
 ## More Decentralized, More Private, Morsy
 
 
-in progress
+Pre-alpha comming soon
