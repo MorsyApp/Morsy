@@ -24,7 +24,13 @@ body{
     width:100%;
     height: 100%;
 }
-
+.is-typing-msg {
+    color: #ffffff;
+    position: absolute;
+    font-size: 2vh;
+    top: 96%;
+    left: 1%;
+}
 .top-bar{
     position: absolute;
     top: 0;

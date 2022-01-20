@@ -203,8 +203,7 @@ function processData(data) {
             break;
 
         case "typing":
-            
-            
+            console.log("typing");
             break;
             
         
@@ -214,16 +213,16 @@ function processData(data) {
 }
 function messageBoxEventHandler(key) {
     if (key.keyCode == 13) {
+        typing = false;
         Send();
     }
     if (key.keyCode != 13) {
         conn.send(userId + ":" + "typing/");
-        typing = true;
-        setTimeout(1000, () => {
-            if (messageBox.value == "") {
-                typing = false;
-            }
-        });
+
+
+
     }
+
+
 
 }

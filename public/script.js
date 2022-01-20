@@ -12,6 +12,7 @@ const copyInviteBtn = document.querySelector(".copy-invite-btn");
 const inviteCloseBtn = document.querySelector(".invite-close-btn");
 const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
+const typingMsg = document.querySelector(".is-typing-msg");
 const peer = new Peer(undefined, {
     host: '127.0.0.1',
     port: '3001'
