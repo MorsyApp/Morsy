@@ -32,6 +32,8 @@ io.on('connection', socket => {
         socket.join(roomId)
         socket.to(roomId).emit('user-connected', userId)
     })
+
+
 })
 
 //starts the server and set the port to 3000

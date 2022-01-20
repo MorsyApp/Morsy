@@ -68,7 +68,6 @@ body{
     height: 4vh;
     transform: translate(-50%,-50%);
 }
-
 .username-inp{
     color: #ffffff;
     outline: none;
@@ -79,6 +78,7 @@ body{
     background-color: #00000000;
     font-size: 2vh;
 }
+
 
 .edit-name-btn{
     padding: 1vh 2vh;

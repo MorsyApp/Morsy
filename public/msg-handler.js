@@ -1,4 +1,16 @@
 
+function removeTags(str) {
+    if ((str===null) || (str===''))
+        return false;
+    else
+        str = str.toString();
+          
+    // Regular expression to identify HTML tags in 
+    // the input string. Replacing the identified 
+    // HTML tag with a null string.
+    return str.replace( /(<([^>]+)>)/ig, '');
+}
+
 //creates an user message bubble with an image from the data url specified 
 function createUsrImg(dataUrl, usrId){
 
@@ -54,7 +66,7 @@ function createUsrMsg(msg, usrId){
     usrMsg.className += ("usr-msg");
 
     msgTxt.innerHTML = msg;
-    usrName.innerHTML = "Mea";
+    usrName.innerHTML = "Me";
 
     usrMsg.appendChild(msgTxt);
     usrMsg.appendChild(usrName);
@@ -106,7 +118,7 @@ function SendFile(dataUrl){
     if (conn) {
         try {
             conn.send(userId+":"+"img/"+dataUrl);
-            createUsrImg(dataUrl,"Mea");
+            createUsrImg(dataUrl,"Me");
             
         } catch (error) {
             console.log(error.message);
@@ -134,9 +146,11 @@ function checkForCommands(msg) {
         
         let cmd = msg.replace("/", "");
 
-        if (cmd == "givealias") {
+        if (cmd == "...") {
             return cmd;
         }
+        //.. add more cmds
+        //ffffffffffffff
 
         return cmd;
     }
@@ -154,25 +168,7 @@ function onUserConnected() {
         console.log(error.message);
     }
 }
-function processData() {
-    processedData = data.substring(0, data.indexOf("/"))
-    newUserId = processedData.substring(0, processedData.indexOf(":"))
-    dataType = processedData.replace(newUserId + ":","")
-    conn = peer.connect(newUserId) // connect to the peer via the default name
 
-    switch (dataType) {
-        case "text":
-            createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
-            console.log("ssss")
-            break;
-        case "img":
-            createPeerImg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
-            break;
-        case "name":
-            peerUsername = data.replace(newUserId + ":","").replace(dataType + "/","");
-            break;
-    }
-}
 function onFileInp() {
     const reader = new FileReader();
     reader.readAsDataURL(fileInp.files[0]);
@@ -183,4 +179,36 @@ function onFileInp() {
         
     })
 
+}
+function processData(data) {
+
+    let processedData = data.substring(0, data.indexOf("/"))
+    let newUserId = processedData.substring(0, processedData.indexOf(":"))
+    let dataType = processedData.replace(newUserId + ":","")
+    conn = peer.connect(newUserId) // connect to the peer via the default name
+
+    switch (dataType) {
+        case "text":
+            createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
+            console.log("Recieved data from " + peerUsername);
+            typing = false;
+            break;
+        case "img":
+            createPeerImg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
+            break;
+        case "name":
+            peerUsername = data.replace(newUserId + ":","").replace(dataType + "/","");
+            break;
+            
+
+    }
+}
+function messageBoxEventHandler(key) {
+    if (key.keyCode == 13) {
+        Send();
+    }
+    if (key.keyCode != 13) {
+        conn.send(userId + ":" + "typing/");
+        typing = true;
+    }
 }
