@@ -90,6 +90,7 @@ body{
 }
 
 .invite-popup{
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -104,16 +105,72 @@ body{
 }
 
 .invite-popup h1{
+
     font-size: 3.5vh;
     color: #ffffff;
+}
+
+.invite-link-container {
+    position: absolute;
+    top: 8vh;
+    width: 100%;
+}
+
+.copy-invite-btn{
+    position: absolute;
+    width: 5vh;
+    height: 4vh;
+    background-color: var(--accent-color);
+    right: 4.4vh;
+    top: 0;
+    border-radius: 0vh 0.5vh 0.5vh 0vh; 
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    transition: 0.4s ease;
+}
+
+.copy-invite-btn svg{
+    height: 2.5vh;
+    transition: 0.4s ease;
+}
+
+.copy-invite-btn:hover {
+    background-color: var(--accent-dim);
+}
+.copy-invite-btn:hover svg rect:nth-child(2) {
+    fill: var(--accent-dim);
+    transition: 0.4s ease;
 }
 
 .invite-popup input{
     background-color: var(--secondary-color);
     height: 4vh;
+    width: 25vh;
     border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 1.5vh;
     border-radius: 0.5vh 0vh 0vh 0.5vh;
 
+}
+
+.invite-close-btn {
+    position: absolute;
+    top: 1vh;
+    right: 1vh;
+    height: 2.5vh;
+    
+}
+
+.invite-close-btn rect{
+    transition: 0.4s ease;
+}
+
+.invite-close-btn:hover rect{
+    fill: var(--accent-dim);
+    transition: 0.4s ease;
 }
 
 .message-view{

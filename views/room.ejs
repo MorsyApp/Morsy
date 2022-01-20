@@ -48,9 +48,20 @@
     </div>
 
     <div class="invite-popup">
+      <svg class="invite-close-btn" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.000244141" y="3.83871" width="5.41189" height="35.5834" rx="2.70595" transform="rotate(-45 0.000244141 3.83871)" fill="#695CBC"/>
+        <rect x="25.1614" width="5.1" height="35.5834" rx="2.55" transform="rotate(45 25.1614 0)" fill="#695CBC"/>
+        </svg>
+        
       <h1>Invite Link</h1>
       <div class="invite-link-container">
-        <input type="text" readonly="readonly" class="invite-link-box">
+        <input type="text" readonly="readonly" class="invite-link-box"><div class="copy-invite-btn">
+          <svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7.5" y="0.5" width="21" height="21" rx="4.5" stroke="white"/>
+            <rect x="0.5" y="4.5" width="21" height="21" rx="4.5" fill="#695CBC" stroke="white"/>
+            </svg>
+            
+        </div>
       </div>
         
     </div>
@@ -85,7 +96,10 @@
           <input class="file-input" type="file" name="name" style="display: none;"/>
       </div>
 
-      <div class="message-container"></div>
+      <div class="message-container">
+        <h3 class="is-typing-msg">Typing</h3>
+
+      </div>
     </div>
   </body>
 </html>

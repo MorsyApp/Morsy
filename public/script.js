@@ -7,19 +7,23 @@ const fileBtn = document.querySelector(".file-btn");
 const fileInp = document.querySelector(".file-input");
 const usernameInp = document.querySelector(".username-inp");
 const editNameBtn = document.querySelector(".edit-name-btn");
+const inviteLinkBox = document.querySelector(".invite-link-box");
+const copyInviteBtn = document.querySelector(".copy-invite-btn");
+const inviteCloseBtn = document.querySelector(".invite-close-btn");
+const invitePopup = document.querySelector(".invite-popup");
+const inviteBtn = document.querySelector(".invite-btn");
 const peer = new Peer(undefined, {
     host: '127.0.0.1',
     port: '3001'
 })
 
-
-
+inviteLinkBox.value= window.location.href;
 
 
 
 //empty variables
 
-let peerUsername = "5AMUE1_M0R5E";
+let peerUsername = "Samuel Morse";
 let editingName = false;
 var userId = undefined;
 var connections = [];
@@ -42,7 +46,7 @@ socket.on("user-connected", userId => {
     connections.push(userId)
 
     conn = peer.connect(connections[0])
-    createPeerMsg("Connection Successful", "You are " + peerUsername);
+    createPeerMsg("Connection Successful", peerUsername);
     setTimeout(connSuccess,500);
 })
 
@@ -101,4 +105,21 @@ editNameBtn.addEventListener("click", () =>{
     }
 })
 
+copyInviteBtn.addEventListener("click", ()=>{
+    navigator.clipboard.writeText(inviteLinkBox.value);
+})
 
+inviteCloseBtn.addEventListener("click",()=>{
+    invitePopup.style.display = "none";
+})
+
+inviteBtn.addEventListener("click",()=>{
+    invitePopup.style.display = "block";
+    console.log("block")
+})
+
+window.addEventListener("mousedown", (e)=>{
+    if(!invitePopup.contains(e.target) && invitePopup.style.display == "block"){
+        invitePopup.style.display = "none";
+    }
+})

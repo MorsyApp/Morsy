@@ -106,6 +106,7 @@ function connSuccess(){
 //sends the connetent of the message box and clears it
 function Send(){
     if(messageBox.value != ""){    
+        console.log(userId);
         conn.send(userId + ":" + "text/" + messageBox.value)
         createUsrMsg(messageBox.value, userId)
     }
@@ -195,10 +196,18 @@ function processData(data) {
             break;
         case "img":
             createPeerImg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
+            typing = false;
             break;
         case "name":
             peerUsername = data.replace(newUserId + ":","").replace(dataType + "/","");
             break;
+
+        case "typing":
+            
+            
+            break;
+            
+        
             
 
     }
@@ -210,5 +219,11 @@ function messageBoxEventHandler(key) {
     if (key.keyCode != 13) {
         conn.send(userId + ":" + "typing/");
         typing = true;
+        setTimeout(1000, () => {
+            if (messageBox.value == "") {
+                typing = false;
+            }
+        });
     }
+
 }
