@@ -4,6 +4,7 @@ function removeTags(str) {
         return false;
     else
         str = str.toString();
+   
           
     // Regular expression to identify HTML tags in 
     // the input string. Replacing the identified 
@@ -203,7 +204,16 @@ function processData(data) {
             break;
 
         case "typing":
+            typing = true;
             console.log("typing");
+
+            let interval = setInterval(() => {
+                if (checkForEmpty()) {
+                    typing = false; // idk if this code works i wrote it in school couldn't run it
+                    console.log("Not typing");
+                    clearInterval(interval);
+                }
+            }, 500);
             break;
             
         
@@ -220,9 +230,16 @@ function messageBoxEventHandler(key) {
         conn.send(userId + ":" + "typing/");
 
 
-
     }
 
 
 
+}
+
+function checkForEmpty() {
+    if (messageBox.value == "") {
+        return true; // returns false if empty
+    }
+    
+    return false; // returns true if not
 }
