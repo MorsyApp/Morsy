@@ -14,8 +14,8 @@ const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
 const peer = new Peer(undefined, {
-    host: '/',
-    port: '3001'
+    host: 'peer.morsy.cc',
+    port: '443'
 })
 
 inviteLinkBox.value= window.location.href;
