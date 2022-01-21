@@ -24,13 +24,14 @@ inviteLinkBox.value= window.location.href;
 
 //empty variables
 
+let firstTime = true;
 let peerUsername = "Samuel Morse";
 let editingName = false;
 var userId = undefined;
 var connections = [];
 var conn = undefined;
 let typing = false;
-let firstTime = true;
+
 
 
 
@@ -67,7 +68,7 @@ peer.on('connection', function(connection) {
 
 
 //detects when enter is pressed while input is selected
-messageBox.addEventListener("keyup", (e)=>{
+messageBox.addEventListener("keydown", (e)=>{
     messageBoxEventHandler(e);
 
 })

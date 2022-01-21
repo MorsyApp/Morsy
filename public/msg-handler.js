@@ -205,15 +205,12 @@ function processData(data) {
 
         case "typing":
             typing = true;
-            console.log("typing");
-
-            let interval = setInterval(() => {
-                if (checkForEmpty()) {
-                    typing = false; // idk if this code works i wrote it in school couldn't run it
-                    console.log("Not typing");
-                    clearInterval(interval);
-                }
-            }, 500);
+            typingMsg.innerHTML = peerUsername + " is typing...";
+            break;
+        
+        case "notyping":
+            typing = false;
+            typingMsg.innerHTML = "";
             break;
             
         
@@ -226,20 +223,28 @@ function messageBoxEventHandler(key) {
         typing = false;
         Send();
     }
-    if (key.keyCode != 13) {
+    if (key.keyCode != 13 && key.key != "Backspace" && key.keyCode != 37 &&
+        key.keyCode != 38 && key.keyCode != 39 && key.keyCode != 40) {
+        
         conn.send(userId + ":" + "typing/");
 
+        let interval = setInterval(() => {
+            if (checkForEmpty()) {
+                conn.send(userId + ":" + "notyping/");
+                clearInterval(interval);
+            }
+        }, 500);
 
     }
 
 
 
 }
-
 function checkForEmpty() {
     if (messageBox.value == "") {
-        return true; // returns false if empty
+        return true;
     }
-    
-    return false; // returns true if not
+    else {
+        return false; 
+    }
 }
