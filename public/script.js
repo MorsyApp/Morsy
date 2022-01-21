@@ -13,9 +13,17 @@ const inviteCloseBtn = document.querySelector(".invite-close-btn");
 const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
+let peerHostname = '127.0.0.1';
+let peerPort = 3001
+
+if (window.location.host == "morsy.cc"){
+    peerHostname = 'peer.morsy.cc';
+    peerPort = 443
+}
+
 const peer = new Peer(undefined, {
-    host: 'peer.morsy.cc',
-    port: 443,
+    host: peerHostname,
+    port: peerPort,
 })
 
 inviteLinkBox.value= window.location.href;
