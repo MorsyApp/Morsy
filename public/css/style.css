@@ -314,6 +314,12 @@ body{
     border-radius: 1vh;
 }
 
+.peer-msg p a, .usr-msg p a{
+    font-size: 2vh;
+    color: #ffffff;
+    word-wrap: break-word;
+}
+
 .file-btn{
     position: absolute;
     height: 2.2vh;

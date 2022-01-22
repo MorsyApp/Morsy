@@ -62,11 +62,24 @@ function createUsrMsg(msg, usrId){
     var usrMsg = document.createElement("div");
     var msgTxt = document.createElement("p");
     var usrName = document.createElement("a");
+    let regex = /(<([^>]+)>)/ig;
+    msg = msg.replace(regex, "");
+    let splitMsg =  msg.split(" ");
+    let fullMsg = "";
+
+    splitMsg.forEach((msgPart) => {
+        if(msgPart.includes("://") && msgPart.includes(".")){
+            fullMsg += '<a href="' + msgPart + '" target="_blank">' + msgPart + '</a> ';
+        }
+        else{
+            fullMsg += msgPart + " ";
+        }
+    })
 
     msgContainer.className += ("msg-container");
     usrMsg.className += ("usr-msg");
 
-    msgTxt.innerHTML = msg;
+    msgTxt.innerHTML = fullMsg;
     usrName.innerHTML = "Me";
 
     usrMsg.appendChild(msgTxt);
@@ -83,11 +96,22 @@ function createPeerMsg(msg, usrId){
     var usrMsg = document.createElement("div");
     var msgTxt = document.createElement("p");
     var usrName = document.createElement("a");
+    let splitMsg =  msg.split(" ");
+    let fullMsg = "";
+
+    splitMsg.forEach((msgPart) => {
+        if(msgPart.includes("://") && msgPart.includes(".")){
+            fullMsg += '<a href="' + msgPart + '" target="_blank">' + msgPart + '</a> ';
+        }
+        else{
+            fullMsg += msgPart + " ";
+        }
+    })
 
     msgContainer.className += ("msg-container");
     usrMsg.className += ("peer-msg");
 
-    msgTxt.innerHTML = msg;
+    msgTxt.innerHTML = fullMsg;
     usrName.innerHTML = peerUsername;
 
     usrMsg.appendChild(msgTxt);
