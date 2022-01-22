@@ -1,4 +1,4 @@
-const sendBtn = document.querySelector(".send-btn");
+const sendBtn = document.querySelector(".send-container");
 const messageBox = document.querySelector(".message-box");
 const messageContainer = document.querySelector(".message-container");
 const fileBtn = document.querySelector(".file-btn");

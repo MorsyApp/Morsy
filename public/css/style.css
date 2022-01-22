@@ -309,6 +309,11 @@ body{
     border-radius: 1vh;
 }
 
+.peer-msg img{
+    width: 40%;
+    border-radius: 1vh;
+}
+
 .file-btn{
     position: absolute;
     height: 2.2vh;
