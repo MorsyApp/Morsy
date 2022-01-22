@@ -26,6 +26,11 @@ app.get('/:room', (req, res) => {
     res.render('room', {roomId: req.params.room})
 })
 
+// run on 404 and shows 404 page
+app.use(function (req,res,next){
+	res.status(404).render('404');
+});
+
 //makes user connect to the room when loading the site 
 io.on('connection', socket => {
     socket.on("join-room", (roomId, userId) => {

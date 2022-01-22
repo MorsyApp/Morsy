@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #131B36;
+}
+
+.page-not-found {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50vh;
+    transform: translate(-50%,-50%);
+}
+
+.page-not-found path:nth-child(2){
+    height: 10vh;
+}
+
