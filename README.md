@@ -5,3 +5,9 @@
 
 Pre-alpha comming soon
 
+# Contact Us
+
+|Person| Email | 
+--- | --- 
+|Carl Marino| cm@carlmarino.tech |
+|Itay Godasevich| itay@please-insert-your-email.com |
