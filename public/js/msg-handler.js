@@ -11,21 +11,13 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
 
-function removeTags(str) {
-    if ((str===null) || (str===''))
-        return false;
-    else
-        str = str.toString();
-   
-          
-    // Regular expression to identify HTML tags in 
-    // the input string. Replacing the identified 
-    // HTML tag with a null string.
-    return str.replace( /(<([^>]+)>)/ig, '');
-}
+// variable that gets reassigned every time a function needs a function tag.
+let FUNCTION_TAG = "";
 
 //creates an user message bubble with an image from the data url specified 
 function createUsrImg(dataUrl, usrId){
+
+    FUNCTION_TAG = "createUsrImg()";
 
     //create html elements
     var msgContainer = document.createElement("div");
@@ -49,6 +41,8 @@ function createUsrImg(dataUrl, usrId){
 //creates a peer message bubble with an image from the data url specified 
 function createPeerImg(dataUrl, usrId){
 
+    FUNCTION_TAG = "createPeerImg()";
+
     // create html elements
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
@@ -68,8 +62,12 @@ function createPeerImg(dataUrl, usrId){
     msgContainer.scrollIntoView();
 }
 
+
 //creates user message bubble 
 function createUsrMsg(msg, usrId){
+
+    FUNCTION_TAG = "createUsrMsg()";
+
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
     var msgTxt = document.createElement("p");
@@ -82,8 +80,10 @@ function createUsrMsg(msg, usrId){
     splitMsg.forEach((msgPart) => {
         if(msgPart.includes("://") && msgPart.includes(".")){
             fullMsg += '<a href="' + msgPart + '" target="_blank">' + msgPart + '</a> ';
+            isMsgHyperLink = true;
         }
         else{
+            isMsgHyperLink = false;
             fullMsg += msgPart + " ";
         }
     })
@@ -104,6 +104,9 @@ function createUsrMsg(msg, usrId){
 
 //creates peer message bubble
 function createPeerMsg(msg, usrId){
+
+    FUNCTION_TAG = "createPeerMsg()";
+
     var msgContainer = document.createElement("div");
     var usrMsg = document.createElement("div");
     var msgTxt = document.createElement("p");
@@ -114,9 +117,11 @@ function createPeerMsg(msg, usrId){
     splitMsg.forEach((msgPart) => {
         if(msgPart.includes("://") && msgPart.includes(".")){
             fullMsg += '<a href="' + msgPart + '" target="_blank">' + msgPart + '</a> ';
+            isMsgHyperLink = true;
         }
         else{
             fullMsg += msgPart + " ";
+            isMsgHyperLink = false;
         }
     })
 
@@ -135,68 +140,65 @@ function createPeerMsg(msg, usrId){
 }
 
 
-//sends the connection successful message
+//sends a connection successful message
 function connSuccess(){
     conn.send(userId + ":" + "text/"  + "Connection Successful")
 }
 
 //sends the connetent of the message box and clears it
 function Send(){
-    if(messageBox.value != ""){    
-        console.log(userId);
-        conn.send(userId + ":" + "text/" + messageBox.value)
-        createUsrMsg(messageBox.value, userId)
+    FUNCTION_TAG = "Send()";
+
+
+    if(messageBox.value != ""){   
+        if (conn) {
+            log(FUNCTION_TAG, `Sent from: ${userId}`);
+            conn.send(userId + ":" + "text/" + messageBox.value); 
+            log(FUNCTION_TAG, "message sent successfully");
+            createUsrMsg(messageBox.value, userId);
+
+        } 
+        else {
+            alert("Something went wrong. "); // change this to custom alert msg later
+        }
     }
-    messageBox.value = "";
+    messageBox.value = ""; // reset message box 
+    
 }
 
 //sends the dataurl for images
 function SendFile(dataUrl){
-
+    FUNCTION_TAG = "SendFile()";
     if (conn) {
         try {
             conn.send(userId+":"+"img/"+dataUrl);
             createUsrImg(dataUrl,"Me");
             
         } catch (error) {
-            console.log(error.message);
+            log(FUNCTION_TAG, error.message);
         }
 
     }
 }
 
 function SendUsrName(newName) {
+    FUNCTION_TAG = "SendUsrName()";
     if (conn) {
         try {
             conn.send(userId+":"+"name/"+newName);
-            console.log("sent name")
-            
+            log(FUNCTION_TAG, "sent name");
         } catch (error) {
-            console.log(error.message);
+            log(FUNCTION_TAG, error.message);
         }
-
-    }
-}
-
-//function to check for any commands in the passed msg param
-function checkForCommands(msg) {
-    if (msg.startsWith("/")) {
         
-        let cmd = msg.replace("/", "");
 
-        if (cmd == "...") {
-            return cmd;
-        }
-        //.. add more cmds
-        //ffffffffffffff
-
-        return cmd;
     }
-    
-    return "";
 }
+
 function onUserConnected() {
-    console.log(userId + " Joined lol ");
+    FUNCTION_TAG = "onUserConnected()";
+    
+    log(FUNCTION_TAG, userId + " Joined the room");
     connections.push(userId);
     try {
         conn = peer.connect(connections[0]);
@@ -219,6 +221,8 @@ function onFileInp() {
 
 }
 function processData(data) {
+    
+    FUNCTION_TAG = "processData()";
 
     let processedData = data.substring(0, data.indexOf("/"))
     let newUserId = processedData.substring(0, processedData.indexOf(":"))
@@ -228,7 +232,7 @@ function processData(data) {
     switch (dataType) {
         case "text":
             createPeerMsg(data.replace(newUserId + ":","").replace(dataType + "/",""),peerUsername);
-            console.log("Recieved data from " + peerUsername);
+            log(FUNCTION_TAG, "Recieved data from " + peerUsername);
             typing = false;
             break;
         case "img":
@@ -257,6 +261,7 @@ function processData(data) {
 function messageBoxEventHandler(key) {
     if (key.keyCode == 13) {
         typing = false;
+        messageBox.blur();
         Send();
     }
     if (key.keyCode != 13 && key.key != "Backspace" && key.keyCode != 37 &&
@@ -265,7 +270,7 @@ function messageBoxEventHandler(key) {
         conn.send(userId + ":" + "typing/");
 
         let interval = setInterval(() => {
-            if (checkForEmpty()) {
+            if (checkForEmpty(messageBox.value)) {
                 conn.send(userId + ":" + "notyping/");
                 clearInterval(interval);
             }
@@ -275,12 +280,4 @@ function messageBoxEventHandler(key) {
 
 
 
-}
-function checkForEmpty() {
-    if (messageBox.value == "") {
-        return true;
-    }
-    else {
-        return false; 
-    }
 }

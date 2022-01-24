@@ -81,8 +81,9 @@ inviteCloseBtn.addEventListener("click",()=>{
 })
 
 inviteBtn.addEventListener("click",()=>{
+    FUNCTION_TAG = "[EVENT_LISTENER] inviteBtn";
     invitePopup.style.display = "block";
-    console.log("block")
+    log(FUNCTION_TAG, "block");
 })
 
 window.addEventListener("mousedown", (e)=>{

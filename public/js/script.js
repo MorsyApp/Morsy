@@ -33,14 +33,15 @@ const peer = new Peer(undefined, {
 
 
 //empty variables
-
-let firstTime = true;
-let peerUsername = "Samuel Morse";
-let editingName = false;
-var userId = undefined;
-var connections = [];
-var conn = undefined;
-let typing = false;
+let roomURL = window.location.href;
+let firstTime = true; // specifies whether it is the first time that the typing message is shown in order to not repeat showing the message
+let peerUsername = "Samuel Morse"; // changeable. this is the default
+let editingName = false; // is the user editing the name
+var userId = undefined; // the default userId for socket connections
+var connections = []; // all the peer connections to the room
+var conn = undefined; // the connection between the two peers
+let typing = false; // bool true if the peer is typing, false if notcmd
+let isMsgHyperLink = false;
 
 
 
@@ -54,7 +55,11 @@ peer.on("open", id =>{
 
 //socket user management
 socket.on("user-connected", userId => {
-    console.log(userId + " Joined lol ")
+
+    FUNCTION_TAG = "[SOCKET_EVENT] user-connected";
+
+    log(FUNCTION_TAG, userId + " Joined the room");
+
     connections.push(userId)
 
     conn = peer.connect(connections[0])
@@ -72,5 +77,4 @@ peer.on('connection', function(connection) {
         processData(data);
     });
   });
-
 
