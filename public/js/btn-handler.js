@@ -60,6 +60,7 @@ editNameBtn.addEventListener("click", () => {
     editNameBtn.innerHTML = "Edit";
     usernameInp.disabled = true;
     SendUsrName(removeTags(usernameInp.value));
+    createSysAlert("Name changed Succesfully")
     editingName = false;
   }
 });
