@@ -54,7 +54,7 @@ socket.on("user-connected", (userId) => {
   connections.push(userId);
 
   conn = peer.connect(connections[0]);
-  createPeerMsg("Connection Successful", peerUsername);
+  createSysAlert("Connection Successful");
   setTimeout(connSuccess, 500);
 });
 

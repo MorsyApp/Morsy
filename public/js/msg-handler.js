@@ -13,8 +13,22 @@ You should have received a copy of the GNU General Public License along with Mor
 
 // variable that gets reassigned every time a function needs a function tag.
 
+//creates alert in the message box (For Example, "Connection Successful")
+function createSysAlert(msg){
+  let alertContainer = document.createElement("div");
+  let alertMsg = document.createElement("h1");
+  
+  alertContainer.classList.add("sysalert");
+  alertMsg.innerHTML = msg;
+
+  alertContainer.appendChild(alertMsg);
+  messageContainer.appendChild(alertContainer);
+}
+
+
 
 //creates an user message bubble with an image from the data url specified
+
 function createUsrImg(dataUrl, usrId) {
   let FUNCTION_TAG = "createUsrImg()";
 
@@ -134,7 +148,7 @@ function createPeerMsg(msg, usrId) {
 
 //sends a connection successful message
 function connSuccess() {
-  conn.send(userId + ":" + "text/" + "Connection Successful");
+  conn.send(userId + ":" + "sysalert/" + "Connection Successful");
 }
 
 //sends the connetent of the message box and clears it
@@ -240,6 +254,8 @@ function processData(data) {
       typing = false;
       typingMsg.innerHTML = "";
       break;
+    case "sysalert":
+      createSysAlert(data.replace(newUserId + ":", "").replace(dataType + "/", ""))
   }
 }
 function messageBoxEventHandler(key) {
