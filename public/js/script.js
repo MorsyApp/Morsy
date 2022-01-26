@@ -29,7 +29,7 @@ const peer = new Peer(undefined, {
 
 //empty variables
 let roomURL = window.location.href;
-let firstTime = true; // specifies whether it is the first time that the typing message is shown in order to not repeat showing the message
+let firstTime = true; // specifies whether it is the first time that the typing mes`sa`ge is shown in order to not repeat showing the message
 let peerUsername = "Unnamed User"; // changeable. this is the default
 let editingName = false; // is the user editing the name
 var userId = undefined; // the default userId for socket connections
