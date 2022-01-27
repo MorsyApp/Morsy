@@ -72,7 +72,7 @@ body{
 
 .menu-btn-container{
     position: absolute;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -85,6 +85,14 @@ body{
     padding-bottom: 1vh;
     border-radius: 0.5vh;
     z-index: 1000;
+}
+
+.menu-btn-container:hover{
+    display: flex;
+}
+
+.top-bar .tripple-dot-menu:hover, .menu-btn-container{
+    display: flex;
 }
 
 .menu-btn-container a{
