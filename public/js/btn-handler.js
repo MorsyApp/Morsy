@@ -25,20 +25,12 @@ const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
 const rootElmnt = document.querySelector(":root");
-<<<<<<< HEAD
 const trippleDotMenu = document.querySelector(".tripple-dot-menu");
 const menuBtnContainer = document.querySelector(".menu-btn-container");
-=======
-
->>>>>>> parent of 69d5e6b (migrated to typescript)
 inviteLinkBox.value = window.location.href;
 
 let colorMode = null;
-<<<<<<< HEAD
 let menuBtnContainerHover;
-=======
-
->>>>>>> parent of 69d5e6b (migrated to typescript)
 sendBtn.addEventListener("click", () => {
   Send();
 });
@@ -90,7 +82,6 @@ inviteBtn.addEventListener("click", () => {
   invitePopup.style.display = "block";
   log(FUNCTION_TAG, "block");
 });
-<<<<<<< HEAD
 trippleDotMenu.addEventListener("mouseenter", () => {
     menuBtnContainer.style.display = "flex";
 });
@@ -119,20 +110,6 @@ function setColors() {
         rootElmnt.style.setProperty("--secondary-color", "#a8a8a8");
         rootElmnt.style.setProperty("--text-color", "#000000");
     }
-=======
-
-function setColors(){
-  if(!colorMode){
-      colorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
-  }
-
-  if(colorMode == "light"){
-    rootElmnt.style.setProperty("--menu-bar-color", "#e6e6e6");
-    rootElmnt.style.setProperty("--bg-color", "#c6c6c6");
-    rootElmnt.style.setProperty("--secondary-color", "#a8a8a8");
-    rootElmnt.style.setProperty("--text-color", "#000000");
-  }
->>>>>>> parent of 69d5e6b (migrated to typescript)
 }
 
 
