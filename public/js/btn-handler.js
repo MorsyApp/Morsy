@@ -24,8 +24,11 @@ const inviteCloseBtn = document.querySelector(".invite-close-btn");
 const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
+const rootElmnt = document.querySelector(":root");
 
 inviteLinkBox.value = window.location.href;
+
+let colorMode = null;
 
 sendBtn.addEventListener("click", () => {
   Send();
@@ -78,6 +81,20 @@ inviteBtn.addEventListener("click", () => {
   invitePopup.style.display = "block";
   log(FUNCTION_TAG, "block");
 });
+
+function setColors(){
+  if(!colorMode){
+      colorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+  }
+
+  if(colorMode == "light"){
+    rootElmnt.style.setProperty("--menu-bar-color", "#e6e6e6");
+    rootElmnt.style.setProperty("--bg-color", "#c6c6c6");
+    rootElmnt.style.setProperty("--secondary-color", "#a8a8a8");
+    rootElmnt.style.setProperty("--text-color", "#000000");
+  }
+}
+
 
 window.addEventListener("mousedown", (e) => {
   if (!invitePopup.contains(e.target) && invitePopup.style.display == "block") {

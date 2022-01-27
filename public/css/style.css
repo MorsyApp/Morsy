@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with Mor
     --secondary-color: #444352;
     --accent-color: #695CBC;
     --accent-dim: #534599;
+    --text-color: #ffffff;
 }
 
 *{
@@ -39,7 +40,7 @@ body{
 }
 
 .is-typing-msg {
-    color: #ffffff; /* change positioning later*/
+    color: var(--text-color); /* change positioning later*/
     position: fixed;
     font-size: 9px;
     top: 93.7069%;
@@ -65,23 +66,49 @@ body{
     width: fit-content;
 }
 
+.logo path:nth-child(6), path:nth-child(7),path:nth-child(8),path:nth-child(9),path:nth-child(10){
+    fill: var(--text-color) !important;
+}
+
 .menu-btn-container{
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 1.5vh;
-    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--menu-bar-color);
+    top: 6.5vh;
+    right: 2vh;
+    width: 10vh;
     height: fit-content;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    border-radius: 0.5vh;
+    z-index: 1000;
 }
 
 .menu-btn-container a{
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
     padding: 1vh 2vh;
-    margin-left: 1vh;
+    width: 90%;
     border-radius: 0.4vh;
-    background-color: var(--accent-color);
+    cursor: default;
+    text-align: center;
 }
+
+.menu-btn-container a:hover{
+    background-color: var(--secondary-color);
+}
+
+.tripple-dot-menu {
+    position: absolute;
+    top: 50%;
+    right: 2vh;
+    transform: translateY(-50%);
+    height: 3vh;
+}
+
 
 .username {
     position: absolute;
@@ -91,7 +118,7 @@ body{
     transform: translate(-50%,-50%);
 }
 .username-inp{
-    color: #ffffff;
+    color: var(--text-color);
     outline: none;
     border: 0.1vh solid var(--secondary-color);
     text-align: center;
@@ -104,7 +131,7 @@ body{
 
 .edit-name-btn{
     padding: 1vh 2vh;
-    color: #ffffff;
+    color: var(--text-color);
     font-size: 2vh;
     cursor: default;
     border-radius: 0.4vh;
@@ -129,7 +156,7 @@ body{
 .invite-popup h1{
 
     font-size: 3.5vh;
-    color: #ffffff;
+    color: var(--text-color);
 }
 
 .invite-link-container {
@@ -172,7 +199,7 @@ body{
     width: 25vh;
     border: none;
     outline: none;
-    color: #ffffff;
+    color: var(--text-color);
     font-size: 1.5vh;
     border-radius: 0.5vh 0vh 0vh 0.5vh;
 
@@ -216,7 +243,7 @@ body{
     height: 80%;
     outline: none;
     font-size: 1.5vh;
-    color: #ffffff;
+    color: var(--text-color);
     bottom: 0.5vh;
     border: none;
     background-color: var(--secondary-color);
@@ -275,7 +302,7 @@ body{
     background-color: var(--accent-color);
     padding: 1vh 2vh;
     border-radius: 1.5vh;
-    color: #ffffff;
+    color: var(--text-color);
     text-align: right;
 }
 
@@ -306,7 +333,7 @@ body{
     background-color: var(--secondary-color);
     padding: 1vh 2vh;
     border-radius: 1.5vh;
-    color: #ffffff;
+    color: var(--text-color);
     text-align: left;
 }
 
@@ -332,7 +359,7 @@ body{
 
 .peer-msg p a, .usr-msg p a{
     font-size: 2vh;
-    color: #ffffff;
+    color: var(--text-color);
     word-wrap: break-word;
 }
 
@@ -352,10 +379,11 @@ body{
     padding: 1.5vh;
     border-radius: 0.5vh;
     margin-top: 1vh;
-    color: #ffffff;
+    color: var(--text-color);
     margin-left: auto;
     margin-right: auto;
 }
+
 
 .sysalert h1{
     font-size: 2vh;
