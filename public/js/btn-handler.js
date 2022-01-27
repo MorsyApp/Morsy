@@ -24,8 +24,11 @@ const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
 const rootElmnt = document.querySelector(":root");
+const trippleDotMenu = document.querySelector(".tripple-dot-menu");
+const menuBtnContainer = document.querySelector(".menu-btn-container");
 inviteLinkBox.value = window.location.href;
 let colorMode = null;
+let menuBtnContainerHover;
 sendBtn.addEventListener("click", () => {
     Send();
 });
@@ -70,6 +73,24 @@ inviteBtn.addEventListener("click", () => {
     FUNCTION_TAG = "[EVENT_LISTENER] inviteBtn";
     invitePopup.style.display = "block";
     log(FUNCTION_TAG, "block");
+});
+trippleDotMenu.addEventListener("mouseenter", () => {
+    menuBtnContainer.style.display = "flex";
+});
+menuBtnContainer.addEventListener("mouseenter", () => {
+    menuBtnContainer.style.display = "flex";
+    menuBtnContainerHover = true;
+});
+menuBtnContainer.addEventListener("mouseleave", () => {
+    menuBtnContainer.style.display = "none";
+    menuBtnContainerHover = false;
+});
+trippleDotMenu.addEventListener("mouseleave", () => {
+    setTimeout(() => {
+        if (!menuBtnContainerHover) {
+            menuBtnContainer.style.display = "none";
+        }
+    }, 300);
 });
 function setColors() {
     if (!colorMode) {
