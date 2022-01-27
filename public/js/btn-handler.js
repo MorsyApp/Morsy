@@ -1,5 +1,5 @@
 /*
-Copyright 2021,2022 Carl Marino and Itay Godasevich
+Copyright 2021,2022 Carl Marino and Itay Godasevich 
 
 
 This file is part of Morsy.
@@ -10,6 +10,7 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
+
 const sendBtn = document.querySelector(".send-container");
 const messageBox = document.querySelector(".message-box");
 const messageContainer = document.querySelector(".message-container");
@@ -24,56 +25,72 @@ const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
 const rootElmnt = document.querySelector(":root");
+<<<<<<< HEAD
 const trippleDotMenu = document.querySelector(".tripple-dot-menu");
 const menuBtnContainer = document.querySelector(".menu-btn-container");
+=======
+
+>>>>>>> parent of 69d5e6b (migrated to typescript)
 inviteLinkBox.value = window.location.href;
+
 let colorMode = null;
+<<<<<<< HEAD
 let menuBtnContainerHover;
+=======
+
+>>>>>>> parent of 69d5e6b (migrated to typescript)
 sendBtn.addEventListener("click", () => {
-    Send();
+  Send();
 });
+
 messageBox.addEventListener("keydown", (e) => {
-    messageBoxEventHandler(e);
+  messageBoxEventHandler(e);
 });
+
 //detects when the file button is clicked
 fileBtn.addEventListener("click", () => {
-    fileInp.click();
+  fileInp.click();
 });
+
 //detects when the user selected a file and sends it
 fileInp.addEventListener("change", () => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileInp.files[0]);
-    reader.addEventListener("load", () => {
-        SendFile(reader.result);
-        fileInp.value = "";
-    });
+  const reader = new FileReader();
+  reader.readAsDataURL(fileInp.files[0]);
+  reader.addEventListener("load", () => {
+    SendFile(reader.result);
+    fileInp.value = "";
+  });
 });
+
 editNameBtn.addEventListener("click", () => {
-    if (!editingName) {
-        editNameBtn.innerHTML = "Save";
-        usernameInp.disabled = false;
-        usernameInp.focus();
-        editingName = true;
-    }
-    else {
-        editNameBtn.innerHTML = "Edit";
-        usernameInp.disabled = true;
-        SendUsrName(removeTags(usernameInp.value));
-        createSysAlert("Name changed successfully!");
-        editingName = false;
-    }
+  if (!editingName) {
+    editNameBtn.innerHTML = "Save";
+    usernameInp.disabled = false;
+    usernameInp.focus();
+    editingName = true;
+  } else {
+    editNameBtn.innerHTML = "Edit";
+    usernameInp.disabled = true;
+    SendUsrName(removeTags(usernameInp.value));
+    createSysAlert("Name changed successfully!")
+    editingName = false;
+  }
 });
+
 copyInviteBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText(inviteLinkBox.value);
+  navigator.clipboard.writeText(inviteLinkBox.value);
 });
+
 inviteCloseBtn.addEventListener("click", () => {
-    invitePopup.style.display = "none";
+  invitePopup.style.display = "none";
 });
+
 inviteBtn.addEventListener("click", () => {
-    FUNCTION_TAG = "[EVENT_LISTENER] inviteBtn";
-    invitePopup.style.display = "block";
-    log(FUNCTION_TAG, "block");
+  FUNCTION_TAG = "[EVENT_LISTENER] inviteBtn";
+  invitePopup.style.display = "block";
+  log(FUNCTION_TAG, "block");
 });
+<<<<<<< HEAD
 trippleDotMenu.addEventListener("mouseenter", () => {
     menuBtnContainer.style.display = "flex";
 });
@@ -102,9 +119,25 @@ function setColors() {
         rootElmnt.style.setProperty("--secondary-color", "#a8a8a8");
         rootElmnt.style.setProperty("--text-color", "#000000");
     }
+=======
+
+function setColors(){
+  if(!colorMode){
+      colorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+  }
+
+  if(colorMode == "light"){
+    rootElmnt.style.setProperty("--menu-bar-color", "#e6e6e6");
+    rootElmnt.style.setProperty("--bg-color", "#c6c6c6");
+    rootElmnt.style.setProperty("--secondary-color", "#a8a8a8");
+    rootElmnt.style.setProperty("--text-color", "#000000");
+  }
+>>>>>>> parent of 69d5e6b (migrated to typescript)
 }
+
+
 window.addEventListener("mousedown", (e) => {
-    if (!invitePopup.contains(e.target) && invitePopup.style.display == "block") {
-        invitePopup.style.display = "none";
-    }
+  if (!invitePopup.contains(e.target) && invitePopup.style.display == "block") {
+    invitePopup.style.display = "none";
+  }
 });

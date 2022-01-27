@@ -72,7 +72,7 @@ body{
 
 .menu-btn-container{
     position: absolute;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -87,12 +87,15 @@ body{
     z-index: 1000;
 }
 
+<<<<<<< HEAD
 .menu-btn-container:hover{
     display: flex;
 }
 
 
 
+=======
+>>>>>>> parent of 69d5e6b (migrated to typescript)
 .menu-btn-container a{
     color: var(--text-color);
     text-decoration: none;
