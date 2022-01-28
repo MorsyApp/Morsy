@@ -1,5 +1,5 @@
 /*
-Copyright 2021,2022 Carl Marino and Itay Godasevich
+Copyright 2021,2022 Carl Marino and Itay Godasevich 
 
 
 This file is part of Morsy.
@@ -10,35 +10,41 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
+
 // all the misc functions needed. only for the purpose of cleaning up the code
-export function removeTags(str) {
-    if (str === null || str === "")
-        return "";
-    else
-        str = str.toString();
-    // Regular expression to identify HTML tags in
-    // the input string. Replacing the identified
-    // HTML tag with a null string.
-    return str.replace(/(<([^>]+)>)/gi, "");
+
+export function removeTags(str: string) {
+  if (str === null || str === "") return "";
+  else str = str.toString();
+
+  // Regular expression to identify HTML tags in
+  // the input string. Replacing the identified
+  // HTML tag with a null string.
+  return str.replace(/(<([^>]+)>)/gi, "");
 }
+
 //function to check for any commands in the passed msg param
-export function checkForCommands(msg) {
-    if (msg.startsWith("/")) {
-        let cmd = msg.replace("/", "");
-        if (cmd == "...") {
-            return cmd;
-        }
-        //.. add more cmds
-        //ffffffffffffff
-        return cmd;
+export function checkForCommands(msg: string) {
+  if (msg.startsWith("/")) {
+    let cmd = msg.replace("/", "");
+
+    if (cmd == "...") {
+      return cmd;
     }
-    return "";
+    //.. add more cmds
+    //ffffffffffffff
+
+    return cmd;
+  }
+
+  return "";
 }
 // checks if a value is equal to ""
-export const checkForEmpty = (value) => {
-    return value == "" ? true : false;
+export const checkForEmpty = (value: string) => {
+  return value == "" ? true : false;
 };
+
 // logging function. Console logs the message but with the function from which the message is originated.
-export const log = (FUNCTION_TAG, msg) => {
-    console.log(`[${FUNCTION_TAG}] ${msg}`);
+export const log = (FUNCTION_TAG: string, msg: any) => {
+  console.log(`[${FUNCTION_TAG}] ${msg}`);
 };

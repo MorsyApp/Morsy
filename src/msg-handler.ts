@@ -11,15 +11,29 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
 
-// letiable that gets reassigned every time a export function needs a export function tag.
+/* 
+
+---- imports ----
+
+*/
 
 import * as msg_smod from "./script.js" // message script module
-import * as msg_bmod from "./btn-handler.js"
-import * as msg_logmod from "./verbose-func.js"
+import * as msg_bmod from "./btn-handler.js" // message btn module
+import * as msg_logmod from "./log-utils.js" // message verbose logging module
 
+
+
+
+
+/*
+
+---- message bubble functions/alert message bubbles ----
+
+
+*/
 
 //creates alert in the message box (For Example, "Connection Successful")
-export function createSysAlert(msg: string){
+export function createSysAlertBubble(msg: string){
   let alertContainer = document.createElement("div");
   let alertMsg = document.createElement("h1");
   
@@ -33,8 +47,7 @@ export function createSysAlert(msg: string){
 
 
 //creates an user message bubble with an image from the data url specified
-
-export function createUsrImg(dataUrl: string, usrId: string) {
+export function createUsrImgBubble(dataUrl: string, usrId: string) {
   let local_local_function_tag = "createUsrImg()";
 
   //create html elements
@@ -57,7 +70,7 @@ export function createUsrImg(dataUrl: string, usrId: string) {
 }
 
 //creates a peer message bubble with an image from the data url specified
-export function createPeerImg(dataUrl: string, usrId: string) {
+export function createPeerImgBubble(dataUrl: string, usrId: string) {
   let local_local_function_tag = "createPeerImg()";
 
   // create html elements
@@ -79,8 +92,8 @@ export function createPeerImg(dataUrl: string, usrId: string) {
   msgContainer.scrollIntoView();
 }
 
-//creates user message bubble
-export function createUsrMsg(msg: string, usrId: string) {
+//creates user message bubble on the users end
+export function createUsrMsgBubble(msg: string, usrId: string) {
   let local_local_function_tag = "createUsrMsg()";
 
   let msgContainer = document.createElement("div");
@@ -115,7 +128,7 @@ export function createUsrMsg(msg: string, usrId: string) {
 }
 
 //creates peer message bubble
-export function createPeerMsg(msg: $TSFixMe, usrId: $TSFixMe) {
+export function createPeerMsgBubble(msg: string, usrId: string) {
   let local_function_tag = "createPeerMsg()";
 
   let msgContainer = document.createElement("div");
@@ -147,13 +160,25 @@ export function createPeerMsg(msg: $TSFixMe, usrId: $TSFixMe) {
   msgContainer.scrollIntoView();
 }
 
+/*
+
+------------------
+
+*/
+/////////////////
+/*
+
+---- sending message functions/sending files ----
+
+*/
+
 //sends a connection successful message
 export function connSuccess() {
   msg_smod.conn.send(msg_smod.userId + ":" + "sysalert/" + "Connection Successful");
 }
 
 //sends the connetent of the message box and clears it
-export function Send() {
+export function send() {
   let local_local_function_tag = "Send()";
 
   if (msg_bmod.messageBox!.value != "") {
@@ -162,7 +187,7 @@ export function Send() {
       msg_smod.conn.send(msg_smod.userId + ":" + "text/" + msg_bmod.messageBox!.value);
       msg_logmod.log(local_local_function_tag, "message sent successfully");
 
-      createUsrMsg(msg_bmod.messageBox!.value, msg_smod.userId);
+      createUsrMsgBubble(msg_bmod.messageBox!.value, msg_smod.userId);
     } else {
       alert("Something went wrong. "); // change this to custom alert msg later
     }
@@ -171,19 +196,20 @@ export function Send() {
 }
 
 //sends the dataurl for images
-export function SendFile(dataUrl: string) {
+export function sendFile(dataUrl: string) {
   let local_function_tag = "SendFile()";
   if (msg_smod.conn) {
     try {
       msg_smod.conn.send(msg_smod.userId + ":" + "img/" + dataUrl);
-      createUsrImg(dataUrl, "Me");
+      createUsrImgBubble(dataUrl, "Me");
     } catch (error: any) {
       msg_logmod.log(local_function_tag, error.message);
     }
   }
 }
 
-export function SendUsrName(newName: string) {
+// sends a request to the other peer to change your own name
+export function sendUserName(newName: string) {
   let local_function_tag = "SendUsrName()";
   if (msg_smod.conn) {
     try {
@@ -195,6 +221,21 @@ export function SendUsrName(newName: string) {
   }
 }
 
+
+/*
+
+--------------------
+
+
+*/
+
+/* 
+
+---- event processing functions (event handlers, user connection handling, processing data) ----
+
+*/
+
+// handle a new user joining the room
 export function onUserConnected() {
   let local_function_tag = "onUserConnected()";
 
@@ -202,22 +243,25 @@ export function onUserConnected() {
   msg_smod.connections.push(msg_smod.userId);
   try {
     msg_smod.setConn(msg_smod.peer.connect(msg_smod.connections[0])); //set conn
-    createPeerMsg("Connection Successful", msg_smod.peerUsername);
+    createSysAlertBubble("Connection Successful");
     setTimeout(connSuccess, 500);
   } catch (error: any) {
     console.log(error.message);
   }
 }
 
+// handle file input from the input field
 export function onFileInp() {
   const reader = new FileReader();
   reader.readAsDataURL(msg_bmod!.fileInp!.files![0]);
   reader.addEventListener("load", () => {
-    SendFile(reader.result!.toString());
+    sendFile(reader.result!.toString());
     msg_bmod.fileInp!.value = "";
   });
 }
-export function processData(data: string) {
+
+// process all message data sent from the peer
+export function processMessageData(data: string) {
   let local_function_tag = "processData()";
 
   let processedData = data.substring(0, data.indexOf("/"));
@@ -227,7 +271,7 @@ export function processData(data: string) {
 
   switch (dataType) {
     case "text":
-      createPeerMsg(
+      createPeerMsgBubble(
         data.replace(newUserId + ":", "").replace(dataType + "/", ""),
         msg_smod.peerUsername
       );
@@ -235,7 +279,7 @@ export function processData(data: string) {
       msg_smod.setIsTyping(false);
       break;
     case "img":
-      createPeerImg(
+      createPeerImgBubble(
         data.replace(newUserId + ":", "").replace(dataType + "/", ""),
         msg_smod.peerUsername
       );
@@ -257,14 +301,15 @@ export function processData(data: string) {
       msg_bmod.typingMsg!.innerHTML = "";
       break;
     case "sysalert":
-      createSysAlert(data.replace(newUserId + ":", "").replace(dataType + "/", ""))
+      createSysAlertBubble(data.replace(newUserId + ":", "").replace(dataType + "/", ""))
   }
 }
+// event handler for the message input box
 export function messageBoxEventHandler(key: $TSFixMe) {
   if (key.keyCode == 13) {
     msg_smod.setIsTyping(false);
     // messageBox.blur(); // this line prevents spam but its annoying for testing
-    Send();
+    send();
   }
   if (
     key.keyCode != 13 &&
@@ -284,4 +329,10 @@ export function messageBoxEventHandler(key: $TSFixMe) {
     }, 1);
   }
 }
+
+/* 
+
+-----------------------------
+
+*/
 export {};

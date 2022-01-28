@@ -102,5 +102,6 @@
   },
   "include": [
     "src/**/*.ts"
-    ,"*.ts"] 
+    ,"*.ts"],
+  "exclude": ["server.ts"]
 }

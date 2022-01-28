@@ -12,7 +12,7 @@ You should have received a copy of the GNU General Public License along with Mor
 */
 import * as btn_msgmod from "./msg-handler.js"; // button file, message module
 import * as btn_scrmod from "./script.js";
-import * as btn_logmod from "./verbose-func.js"
+import * as btn_logmod from "./log-utils.js"
 
 export const sendBtn: HTMLDivElement | null =
   document.querySelector(".send-container");
@@ -53,7 +53,7 @@ export let menuBtnContainerHover: boolean;
 
 if (sendBtn) {
   sendBtn.addEventListener("click", () => {
-    btn_msgmod.Send();
+    btn_msgmod.send();
   });
 }
 
@@ -76,7 +76,7 @@ if (fileBtn && fileInp) {
     const reader = new FileReader();
     reader.readAsDataURL(fileInp.files![0]);
     reader.addEventListener("load", () => {
-      btn_msgmod.SendFile(reader.result!.toString());
+      btn_msgmod.sendFile(reader.result!.toString());
       fileInp.value = "";
     });
   });
@@ -93,8 +93,8 @@ if (editNameBtn) {
     } else {
       if (editNameBtn) editNameBtn.innerHTML = "Edit";
       if (usernameInp) usernameInp.disabled = true;
-      if (usernameInp) btn_msgmod.SendUsrName(btn_logmod.removeTags(usernameInp.value));
-      btn_msgmod.createSysAlert("Name changed successfully!");
+      if (usernameInp) btn_msgmod.sendUserName(btn_logmod.removeTags(usernameInp.value));
+      btn_msgmod.createSysAlertBubble("Name changed successfully!");
       btn_scrmod.setIsEditingName(false);
     }
   });

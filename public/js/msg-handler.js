@@ -1,4 +1,3 @@
-"use strict";
 /*
 Copyright 2021,2022 Carl Marino and Itay Godasevich
 
@@ -11,24 +10,37 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
-// variable that gets reassigned every time a function needs a function tag.
+/*
+
+---- imports ----
+
+*/
+import * as msg_smod from "./script.js"; // message script module
+import * as msg_bmod from "./btn-handler.js"; // message btn module
+import * as msg_logmod from "./log-utils.js"; // message verbose logging module
+/*
+
+---- message bubble functions/alert message bubbles ----
+
+
+*/
 //creates alert in the message box (For Example, "Connection Successful")
-function createSysAlert(msg) {
+export function createSysAlertBubble(msg) {
     let alertContainer = document.createElement("div");
     let alertMsg = document.createElement("h1");
     alertContainer.classList.add("sysalert");
     alertMsg.innerHTML = msg;
     alertContainer.appendChild(alertMsg);
-    messageContainer.appendChild(alertContainer);
+    msg_bmod.messageContainer.appendChild(alertContainer);
 }
 //creates an user message bubble with an image from the data url specified
-function createUsrImg(dataUrl, usrId) {
-    let FUNCTION_TAG = "createUsrImg()";
+export function createUsrImgBubble(dataUrl, usrId) {
+    let local_local_function_tag = "createUsrImg()";
     //create html elements
-    var msgContainer = document.createElement("div");
-    var usrMsg = document.createElement("div");
-    var msgImg = document.createElement("img");
-    var usrName = document.createElement("a");
+    let msgContainer = document.createElement("div");
+    let usrMsg = document.createElement("div");
+    let msgImg = document.createElement("img");
+    let usrName = document.createElement("a");
     msgContainer.className += "msg-container";
     usrMsg.className += "usr-msg";
     msgImg.src = dataUrl;
@@ -36,34 +48,34 @@ function createUsrImg(dataUrl, usrId) {
     usrMsg.appendChild(msgImg);
     usrMsg.appendChild(usrName);
     msgContainer.appendChild(usrMsg);
-    messageContainer.appendChild(msgContainer);
+    msg_bmod.messageContainer.appendChild(msgContainer);
     msgContainer.scrollIntoView();
 }
 //creates a peer message bubble with an image from the data url specified
-function createPeerImg(dataUrl, usrId) {
-    let FUNCTION_TAG = "createPeerImg()";
+export function createPeerImgBubble(dataUrl, usrId) {
+    let local_local_function_tag = "createPeerImg()";
     // create html elements
-    var msgContainer = document.createElement("div");
-    var usrMsg = document.createElement("div");
-    var msgImg = document.createElement("img");
-    var usrName = document.createElement("a");
+    let msgContainer = document.createElement("div");
+    let usrMsg = document.createElement("div");
+    let msgImg = document.createElement("img");
+    let usrName = document.createElement("a");
     msgContainer.className += "msg-container";
     usrMsg.className += "peer-msg";
     msgImg.src = dataUrl;
-    usrName.innerHTML = peerUsername;
+    usrName.innerHTML = msg_smod.peerUsername;
     usrMsg.appendChild(msgImg);
     usrMsg.appendChild(usrName);
     msgContainer.appendChild(usrMsg);
-    messageContainer.appendChild(msgContainer);
+    msg_bmod.messageContainer.appendChild(msgContainer);
     msgContainer.scrollIntoView();
 }
-//creates user message bubble
-function createUsrMsg(msg, usrId) {
-    let FUNCTION_TAG = "createUsrMsg()";
-    var msgContainer = document.createElement("div");
-    var usrMsg = document.createElement("div");
-    var msgTxt = document.createElement("p");
-    var usrName = document.createElement("a");
+//creates user message bubble on the users end
+export function createUsrMsgBubble(msg, usrId) {
+    let local_local_function_tag = "createUsrMsg()";
+    let msgContainer = document.createElement("div");
+    let usrMsg = document.createElement("div");
+    let msgTxt = document.createElement("p");
+    let usrName = document.createElement("a");
     let regex = /(<([^>]+)>)/gi;
     msg = msg.replace(regex, "");
     let splitMsg = msg.split(" ");
@@ -72,10 +84,8 @@ function createUsrMsg(msg, usrId) {
         if (msgPart.includes("://") && msgPart.includes(".")) {
             fullMsg +=
                 '<a href="' + msgPart + '" target="_blank">' + msgPart + "</a> ";
-            isMsgHyperLink = true;
         }
         else {
-            isMsgHyperLink = false;
             fullMsg += msgPart + " ";
         }
     });
@@ -86,143 +96,168 @@ function createUsrMsg(msg, usrId) {
     usrMsg.appendChild(msgTxt);
     usrMsg.appendChild(usrName);
     msgContainer.appendChild(usrMsg);
-    messageContainer.appendChild(msgContainer);
+    msg_bmod.messageContainer.appendChild(msgContainer);
     msgContainer.scrollIntoView();
 }
 //creates peer message bubble
-function createPeerMsg(msg, usrId) {
-    let FUNCTION_TAG = "createPeerMsg()";
-    var msgContainer = document.createElement("div");
-    var usrMsg = document.createElement("div");
-    var msgTxt = document.createElement("p");
-    var usrName = document.createElement("a");
+export function createPeerMsgBubble(msg, usrId) {
+    let local_function_tag = "createPeerMsg()";
+    let msgContainer = document.createElement("div");
+    let usrMsg = document.createElement("div");
+    let msgTxt = document.createElement("p");
+    let usrName = document.createElement("a");
     let splitMsg = msg.split(" ");
     let fullMsg = "";
     splitMsg.forEach((msgPart) => {
         if (msgPart.includes("://") && msgPart.includes(".")) {
             fullMsg +=
                 '<a href="' + msgPart + '" target="_blank">' + msgPart + "</a> ";
-            isMsgHyperLink = true;
         }
         else {
             fullMsg += msgPart + " ";
-            isMsgHyperLink = false;
         }
     });
     msgContainer.className += "msg-container";
     usrMsg.className += "peer-msg";
     msgTxt.innerHTML = fullMsg;
-    usrName.innerHTML = peerUsername;
+    usrName.innerHTML = msg_smod.peerUsername;
     usrMsg.appendChild(msgTxt);
     usrMsg.appendChild(usrName);
     msgContainer.appendChild(usrMsg);
-    messageContainer.appendChild(msgContainer);
+    msg_bmod.messageContainer.appendChild(msgContainer);
     msgContainer.scrollIntoView();
 }
+/*
+
+------------------
+
+*/
+/////////////////
+/*
+
+---- sending message functions/sending files ----
+
+*/
 //sends a connection successful message
-function connSuccess() {
-    conn.send(userId + ":" + "sysalert/" + "Connection Successful");
+export function connSuccess() {
+    msg_smod.conn.send(msg_smod.userId + ":" + "sysalert/" + "Connection Successful");
 }
 //sends the connetent of the message box and clears it
-function Send() {
-    let FUNCTION_TAG = "Send()";
-    if (messageBox.value != "") {
-        if (conn) {
-            log(FUNCTION_TAG, `Sent from: ${userId}`);
-            conn.send(userId + ":" + "text/" + messageBox.value);
-            log(FUNCTION_TAG, "message sent successfully");
-            createUsrMsg(messageBox.value, userId);
+export function send() {
+    let local_local_function_tag = "Send()";
+    if (msg_bmod.messageBox.value != "") {
+        if (msg_smod.conn) {
+            msg_logmod.log(local_local_function_tag, `Sent from: ${msg_smod.userId}`);
+            msg_smod.conn.send(msg_smod.userId + ":" + "text/" + msg_bmod.messageBox.value);
+            msg_logmod.log(local_local_function_tag, "message sent successfully");
+            createUsrMsgBubble(msg_bmod.messageBox.value, msg_smod.userId);
         }
         else {
             alert("Something went wrong. "); // change this to custom alert msg later
         }
     }
-    messageBox.value = ""; // reset message box
+    msg_bmod.messageBox.value = ""; // reset message box
 }
 //sends the dataurl for images
-function SendFile(dataUrl) {
-    let FUNCTION_TAG = "SendFile()";
-    if (conn) {
+export function sendFile(dataUrl) {
+    let local_function_tag = "SendFile()";
+    if (msg_smod.conn) {
         try {
-            conn.send(userId + ":" + "img/" + dataUrl);
-            createUsrImg(dataUrl, "Me");
+            msg_smod.conn.send(msg_smod.userId + ":" + "img/" + dataUrl);
+            createUsrImgBubble(dataUrl, "Me");
         }
         catch (error) {
-            log(FUNCTION_TAG, error.message);
+            msg_logmod.log(local_function_tag, error.message);
         }
     }
 }
-function SendUsrName(newName) {
-    let FUNCTION_TAG = "SendUsrName()";
-    if (conn) {
+// sends a request to the other peer to change your own name
+export function sendUserName(newName) {
+    let local_function_tag = "SendUsrName()";
+    if (msg_smod.conn) {
         try {
-            conn.send(userId + ":" + "name/" + newName);
-            log(FUNCTION_TAG, "sent name");
+            msg_smod.conn.send(msg_smod.userId + ":" + "name/" + newName);
+            msg_logmod.log(local_function_tag, "sent name");
         }
         catch (error) {
-            log(FUNCTION_TAG, error.message);
+            msg_logmod.log(local_function_tag, error.message);
         }
     }
 }
-function onUserConnected() {
-    let FUNCTION_TAG = "onUserConnected()";
-    log(FUNCTION_TAG, userId + " Joined the room");
-    connections.push(userId);
+/*
+
+--------------------
+
+
+*/
+/*
+
+---- event processing functions (event handlers, user connection handling, processing data) ----
+
+*/
+// handle a new user joining the room
+export function onUserConnected() {
+    let local_function_tag = "onUserConnected()";
+    msg_logmod.log(local_function_tag, msg_smod.userId + " Joined the room");
+    msg_smod.connections.push(msg_smod.userId);
     try {
-        conn = peer.connect(connections[0]);
-        createPeerMsg("Connection Successful", peerUsername);
+        msg_smod.setConn(msg_smod.peer.connect(msg_smod.connections[0])); //set conn
+        createSysAlertBubble("Connection Successful");
         setTimeout(connSuccess, 500);
     }
     catch (error) {
         console.log(error.message);
     }
 }
-function onFileInp() {
+// handle file input from the input field
+export function onFileInp() {
     const reader = new FileReader();
-    reader.readAsDataURL(fileInp.files[0]);
+    reader.readAsDataURL(msg_bmod.fileInp.files[0]);
     reader.addEventListener("load", () => {
-        SendFile(reader.result);
-        fileInp.value = "";
+        sendFile(reader.result.toString());
+        msg_bmod.fileInp.value = "";
     });
 }
-function processData(data) {
-    let FUNCTION_TAG = "processData()";
+// process all message data sent from the peer
+export function processMessageData(data) {
+    let local_function_tag = "processData()";
     let processedData = data.substring(0, data.indexOf("/"));
     let newUserId = processedData.substring(0, processedData.indexOf(":"));
     let dataType = processedData.replace(newUserId + ":", "");
-    conn = peer.connect(newUserId); // connect to the peer via the default name
+    msg_smod.setConn(msg_smod.peer.connect(newUserId)); // connect to the peer via the default name
     switch (dataType) {
         case "text":
-            createPeerMsg(data.replace(newUserId + ":", "").replace(dataType + "/", ""), peerUsername);
-            log(FUNCTION_TAG, "Recieved data from " + peerUsername);
-            typing = false;
+            createPeerMsgBubble(data.replace(newUserId + ":", "").replace(dataType + "/", ""), msg_smod.peerUsername);
+            msg_logmod.log(local_function_tag, "Recieved data from " + msg_smod.peerUsername);
+            msg_smod.setIsTyping(false);
             break;
         case "img":
-            createPeerImg(data.replace(newUserId + ":", "").replace(dataType + "/", ""), peerUsername);
-            typing = false;
+            createPeerImgBubble(data.replace(newUserId + ":", "").replace(dataType + "/", ""), msg_smod.peerUsername);
+            msg_smod.setIsTyping(false);
             break;
         case "name":
-            peerUsername = data
+            msg_smod.setPeerUsername(data
                 .replace(newUserId + ":", "")
-                .replace(dataType + "/", "");
+                .replace(dataType + "/", ""));
             break;
         case "typing":
-            typing = true;
-            typingMsg.innerHTML = peerUsername + " is typing...";
+            msg_smod.setIsTyping(true);
+            msg_bmod.typingMsg.innerHTML = msg_smod.peerUsername + " is typing...";
             break;
         case "notyping":
-            typing = false;
-            typingMsg.innerHTML = "";
+            msg_smod.setIsTyping(false);
+            msg_bmod.typingMsg.innerHTML = "";
             break;
         case "sysalert":
-            createSysAlert(data.replace(newUserId + ":", "").replace(dataType + "/", ""));
+            createSysAlertBubble(data.replace(newUserId + ":", "").replace(dataType + "/", ""));
     }
 }
-function messageBoxEventHandler(key) {
+// event handler for the message input box
+export function messageBoxEventHandler(key) {
     if (key.keyCode == 13) {
-        typing = false;
+        msg_smod.setIsTyping(false);
         // messageBox.blur(); // this line prevents spam but its annoying for testing
-        Send();
+        send();
     }
     if (key.keyCode != 13 &&
         key.key != "Backspace" &&
@@ -230,10 +265,10 @@ function messageBoxEventHandler(key) {
         key.keyCode != 38 &&
         key.keyCode != 39 &&
         key.keyCode != 40) {
-        conn.send(userId + ":" + "typing/");
+        msg_smod.conn.send(msg_smod.userId + ":" + "typing/");
         let interval = setInterval(() => {
-            if (checkForEmpty(messageBox.value)) {
-                conn.send(userId + ":" + "notyping/");
+            if (msg_logmod.checkForEmpty(msg_bmod.messageBox.value)) {
+                msg_smod.conn.send(msg_smod.userId + ":" + "notyping/");
                 clearInterval(interval);
             }
         }, 1);
