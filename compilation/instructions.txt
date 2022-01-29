@@ -1,0 +1,14 @@
+TO COMPILE AND RUN MORSY LOCALLY
+
+if on windows:
+
+1. cd into the root directory of Morsy 
+2. cd into /compilation
+3. run "start compile-windows.bat"
+
+
+if on linux:
+
+1. cd into root directory of Morsy
+2. cd into /compilation
+3. run "./compile-linux.sh"

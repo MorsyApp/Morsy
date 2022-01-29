@@ -34,8 +34,8 @@ import * as msg_logmod from "./log-utils.js" // message verbose logging module
 
 //creates alert in the message box (For Example, "Connection Successful")
 export function createSysAlertBubble(msg: string){
-  let alertContainer = document.createElement("div");
-  let alertMsg = document.createElement("h1");
+  let alertContainer: HTMLDivElement | null = document.createElement("div");
+  let alertMsg: HTMLHeadingElement | null = document.createElement("h1");
   
   alertContainer.classList.add("sysalert");
   alertMsg.innerHTML = msg;
@@ -48,7 +48,7 @@ export function createSysAlertBubble(msg: string){
 
 //creates an user message bubble with an image from the data url specified
 export function createUsrImgBubble(dataUrl: string, usrId: string) {
-  let local_local_function_tag = "createUsrImg()";
+  let local_function_tag = "createUsrImg()";
 
   //create html elements
   let msgContainer = document.createElement("div");
@@ -75,19 +75,19 @@ export function createPeerImgBubble(dataUrl: string, usrId: string) {
 
   // create html elements
   let msgContainer = document.createElement("div");
-  let usrMsg = document.createElement("div");
+  let peerMsg = document.createElement("div");
   let msgImg = document.createElement("img");
-  let usrName = document.createElement("a");
+  let peerName = document.createElement("a");
 
   msgContainer.className += "msg-container";
-  usrMsg.className += "peer-msg";
+  peerMsg.className += "peer-msg";
 
   msgImg.src = dataUrl;
-  usrName.innerHTML = msg_smod.peerUsername;
+  peerName.innerHTML = msg_smod.peerUsername;
 
-  usrMsg.appendChild(msgImg);
-  usrMsg.appendChild(usrName);
-  msgContainer.appendChild(usrMsg);
+  peerMsg.appendChild(msgImg);
+  peerMsg.appendChild(peerName);
+  msgContainer.appendChild(peerMsg);
   msg_bmod.messageContainer!.appendChild(msgContainer);
   msgContainer.scrollIntoView();
 }
@@ -132,9 +132,9 @@ export function createPeerMsgBubble(msg: string, usrId: string) {
   let local_function_tag = "createPeerMsg()";
 
   let msgContainer = document.createElement("div");
-  let usrMsg = document.createElement("div");
+  let peerMsg = document.createElement("div");
   let msgTxt = document.createElement("p");
-  let usrName = document.createElement("a");
+  let peerName = document.createElement("a");
   let splitMsg = msg.split(" ");
   let fullMsg = "";
 
@@ -146,18 +146,38 @@ export function createPeerMsgBubble(msg: string, usrId: string) {
       fullMsg += msgPart + " ";
     }
   });
-
+  /* add class names to divs and message*/
   msgContainer.className += "msg-container";
-  usrMsg.className += "peer-msg";
+  peerMsg.className += "peer-msg";
 
+  // append message to the HTML
   msgTxt.innerHTML = fullMsg;
-  usrName.innerHTML = msg_smod.peerUsername;
+  // append the peer username
+  peerName.innerHTML = msg_smod.peerUsername;
 
-  usrMsg.appendChild(msgTxt);
-  usrMsg.appendChild(usrName);
-  msgContainer.appendChild(usrMsg);
+  // append children
+  peerMsg.appendChild(msgTxt);
+  peerMsg.appendChild(peerName);
+  msgContainer.appendChild(peerMsg);
   msg_bmod.messageContainer!.appendChild(msgContainer);
   msgContainer.scrollIntoView();
+}
+
+export function removeSysAlerts(sysalerts: HTMLCollectionOf<Element>) {
+  for (let i: number = 0; i < sysalerts.length; i++) {
+
+    try {
+      setTimeout(() => {
+        setTimeout(() => sysalerts.item(i)?.remove(), 400)
+      }, 3000)
+    } catch (error: any) {
+      return
+    }
+    
+    
+    
+  }
+  console.clear()
 }
 
 /*
@@ -179,17 +199,19 @@ export function connSuccess() {
 
 //sends the connetent of the message box and clears it
 export function send() {
-  let local_local_function_tag = "Send()";
+  let local_function_tag = "Send()";
 
   if (msg_bmod.messageBox!.value != "") {
     if (msg_smod.conn) {
-      msg_logmod.log(local_local_function_tag, `Sent from: ${msg_smod.userId}`);
-      msg_smod.conn.send(msg_smod.userId + ":" + "text/" + msg_bmod.messageBox!.value);
-      msg_logmod.log(local_local_function_tag, "message sent successfully");
+      msg_logmod.log(local_function_tag, `Sent from: ${msg_smod.userId}`);
+      msg_smod.conn.send(msg_smod.userId + ":" + "text/" + msg_bmod.messageBox!.value); // send the message
+      msg_logmod.log(local_function_tag, "message sent successfully");
 
-      createUsrMsgBubble(msg_bmod.messageBox!.value, msg_smod.userId);
+      createUsrMsgBubble(msg_bmod.messageBox!.value, msg_smod.userId); // create the message bubble
     } else {
-      alert("Something went wrong. "); // change this to custom alert msg later
+      createSysAlertBubble("Could not send message")
+      let sysalerts: HTMLCollectionOf<Element> = document.getElementsByClassName("sysalert")
+      removeSysAlerts(sysalerts)
     }
   }
   msg_bmod.messageBox!.value = ""; // reset message box
