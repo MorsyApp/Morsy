@@ -119,12 +119,9 @@ function sendTypingIndicatorReq(val) {
     try {
       if (val) {
         conn.send(userId + ":" + "typingIndicatorOn/" );
-        
-
       }
       else {
         conn.send(userId + ":" + "typingIndicatorOff/");
-        
       }
 
       log(FUNCTION_TAG, `typing indicator set to ${val}`);
@@ -172,6 +169,12 @@ function createPeerMsgBubble(msg, usrId) {
 //sends a connection successful message
 function connSuccess() {
   conn.send(userId + ":" + "sysalert/" + "Connection Successful");
+}
+
+function updateSettings() {
+  if(localStorage.getItem("recImages")){
+    
+  }
 }
 
 //sends the connetent of the message box and clears it

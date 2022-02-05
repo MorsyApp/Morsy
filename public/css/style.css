@@ -42,7 +42,8 @@ body{
 .is-typing-msg {
     color: var(--text-color); /* change positioning later*/
     position: fixed;
-    font-size: 9px;
+    font-size: 14
+    px;
     top: 93.7069%;
     left: 50%;
     

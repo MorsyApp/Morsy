@@ -11,6 +11,8 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
 
+
+
 const sendBtn = document.querySelector(".send-container");
 const messageBox = document.querySelector(".message-box");
 const messageContainer = document.querySelector(".message-container");
@@ -41,16 +43,22 @@ let menuBtnContainerHover = false;
 inviteLinkBox.value = window.location.href;
 
 let colorMode = "default";
+
+
 let recImages = true;
+
+
 
 
 imagesOn.addEventListener("click", ()=>{
   recImages = true;
   imagesOn.style.backgroundColor = "var(--secondary-color)";
   imagesOff.style.backgroundColor = "var(--menu-bar-color)";
+  localStorage.setItem("recImages","true");
 })
 imagesOff.addEventListener("click", ()=>{
   recImages = false;
+  localStorage.setItem("recImages","false");
   imagesOff.style.backgroundColor = "var(--secondary-color)";
   imagesOn.style.backgroundColor = "var(--menu-bar-color)";
 })
@@ -58,13 +66,17 @@ imagesOff.addEventListener("click", ()=>{
 typingIndicatorOn.addEventListener("click", () => {
   typingIndicatorOff.style.backgroundColor = "var(--menu-bar-color)";
   typingIndicatorOn.style.backgroundColor = "var(--secondary-color)";
+  localStorage.setItem("showTyping","true");
   sendTypingIndicatorReq(true)
+
 
 })
 typingIndicatorOff.addEventListener("click", () => {
   typingIndicatorOn.style.backgroundColor = "var(--menu-bar-color)";
   typingIndicatorOff.style.backgroundColor = "var(--secondary-color)";
+  localStorage.setItem("showTyping","false");
   sendTypingIndicatorReq(false)
+
   
 })
 
@@ -101,7 +113,8 @@ editNameBtn.addEventListener("click", () => {
   } else {
     editNameBtn.innerHTML = "Edit";
     usernameInp.disabled = true;
-    SendUsrName(removeTags(usernameInp.value));
+    sendUsrNameReq(removeTags(usernameInp.value));
+    localStorage.setItem("usrName",removeTags(usernameInp.value));
     createSysAlertBubble("Name changed successfully!")
     editingName = false;
   }
@@ -130,6 +143,7 @@ colorOptions.forEach((option) => {
     option.childNodes[3].style.fill = "var(--accent-color)";
     console.log(option.childNodes);
     colorMode = option.id;
+    localStorage.setItem("colorMode",option.id);
     setColors();
   })
 })
@@ -195,3 +209,5 @@ window.addEventListener("mousedown", (e) => {
     settingsContainer.style.display = "none";
   }
 });
+
+setColors();
