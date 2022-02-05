@@ -38,6 +38,7 @@ var conn = undefined; // the connection between the two peers
 let typing = false; // bool true if the peer is typing, false if notcmd
 let isMsgHyperLink = false;
 
+
 let givenAlias = false;
 
 peer.on("open", (id) => {
@@ -57,6 +58,7 @@ socket.on("user-connected", (userId) => {
   createSysAlert("Connection Successful");
   setTimeout(connSuccess, 500);
 });
+
 
 //peerjs managing connnections and data sent from other users
 peer.on("connection", function (connection) {

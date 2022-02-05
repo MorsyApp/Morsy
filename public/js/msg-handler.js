@@ -11,6 +11,7 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
 
+
 // variable that gets reassigned every time a function needs a function tag.
 
 //creates alert in the message box (For Example, "Connection Successful")
@@ -73,6 +74,7 @@ function createPeerImg(dataUrl, usrId) {
   messageContainer.appendChild(msgContainer);
   msgContainer.scrollIntoView();
 }
+
 
 //creates user message bubble
 function createUsrMsg(msg, usrId) {
