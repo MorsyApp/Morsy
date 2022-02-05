@@ -72,7 +72,7 @@ body{
 
 .menu-btn-container{
     position: absolute;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -107,6 +107,10 @@ body{
     right: 2vh;
     transform: translateY(-50%);
     height: 3vh;
+}
+
+.tripple-dot-menu circle{
+    fill: var(--text-color);
 }
 
 

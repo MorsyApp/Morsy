@@ -25,7 +25,11 @@ const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
 const rootElmnt = document.querySelector(":root");
+const trippleDotMenu = document.querySelector(".tripple-dot-menu");
+const menuBtnContainer = document.querySelector(".menu-btn-container");
 
+
+let menuBtnContainerHover = false;
 inviteLinkBox.value = window.location.href;
 
 let colorMode = null;
@@ -95,6 +99,30 @@ function setColors(){
   }
 }
 
+
+
+trippleDotMenu.addEventListener("mouseenter", ()=>{
+  menuBtnContainer.style.display = "flex";
+})
+
+trippleDotMenu.addEventListener("mouseleave", ()=>{
+  setTimeout(()=>{
+    if(!menuBtnContainerHover){
+      menuBtnContainer.style.display = "none";
+    }
+  },250)
+  
+})
+
+menuBtnContainer.addEventListener("mouseenter", ()=>{
+  menuBtnContainerHover = true;
+  menuBtnContainer.style.display = "flex";
+})
+
+menuBtnContainer.addEventListener("mouseleave", ()=>{
+  menuBtnContainerHover = false;
+  menuBtnContainer.style.display = "none";
+})
 
 window.addEventListener("mousedown", (e) => {
   if (!invitePopup.contains(e.target) && invitePopup.style.display == "block") {
