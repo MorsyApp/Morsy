@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License along with Mor
 // variable that gets reassigned every time a function needs a function tag.
 
 //creates alert in the message box (For Example, "Connection Successful")
-function createSysAlert(msg){
+function createSysAlertBubble(msg){
   let alertContainer = document.createElement("div");
   let alertMsg = document.createElement("h1");
   
@@ -77,7 +77,7 @@ function createPeerImg(dataUrl, usrId) {
 
 
 //creates user message bubble
-function createUsrMsg(msg, usrId) {
+function createUsrMsgBubble(msg, usrId) {
   let FUNCTION_TAG = "createUsrMsg()";
 
   var msgContainer = document.createElement("div");
@@ -93,9 +93,9 @@ function createUsrMsg(msg, usrId) {
     if (msgPart.includes("://") && msgPart.includes(".")) {
       fullMsg +=
         '<a href="' + msgPart + '" target="_blank">' + msgPart + "</a> ";
-      isMsgHyperLink = true;
+      setMsgHyperlink(true)
     } else {
-      isMsgHyperLink = false;
+      setMsgHyperlink(false)
       fullMsg += msgPart + " ";
     }
   });
@@ -113,8 +113,29 @@ function createUsrMsg(msg, usrId) {
   msgContainer.scrollIntoView();
 }
 
+function sendTypingIndicatorReq(val) {
+  let FUNCTION_TAG = "sendTypingIndicatorReq()";
+  if (conn) {
+    try {
+      if (val) {
+        conn.send(userId + ":" + "typingIndicatorOn/" );
+        
+
+      }
+      else {
+        conn.send(userId + ":" + "typingIndicatorOff/");
+        
+      }
+
+      log(FUNCTION_TAG, `typing indicator set to ${val}`);
+    } catch (error) {
+      log(FUNCTION_TAG, error.message);
+    }
+  }
+}
+
 //creates peer message bubble
-function createPeerMsg(msg, usrId) {
+function createPeerMsgBubble(msg, usrId) {
   let FUNCTION_TAG = "createPeerMsg()";
 
   var msgContainer = document.createElement("div");
@@ -154,15 +175,15 @@ function connSuccess() {
 }
 
 //sends the connetent of the message box and clears it
-function Send() {
-  let FUNCTION_TAG = "Send()";
+function sendMsg() {
+  let FUNCTION_TAG = "sendMsg()";
 
   if (messageBox.value != "") {
     if (conn) {
       log(FUNCTION_TAG, `Sent from: ${userId}`);
       conn.send(userId + ":" + "text/" + messageBox.value);
       log(FUNCTION_TAG, "message sent successfully");
-      createUsrMsg(messageBox.value, userId);
+      createUsrMsgBubble(messageBox.value, userId);
     } else {
       alert("Something went wrong. "); // change this to custom alert msg later
     }
@@ -171,20 +192,22 @@ function Send() {
 }
 
 //sends the dataurl for images
-function SendFile(dataUrl) {
-  let FUNCTION_TAG = "SendFile()";
-  if (conn) {
-    try {
-      conn.send(userId + ":" + "img/" + dataUrl);
-      createUsrImg(dataUrl, "Me");
-    } catch (error) {
-      log(FUNCTION_TAG, error.message);
+function sendFile(dataUrl) {
+  let FUNCTION_TAG = "sendFile()";
+    if (conn) {
+      try {
+        conn.send(userId + ":" + "img/" + dataUrl);
+        createUsrImg(dataUrl, "Me");
+      } catch (error) {
+        log(FUNCTION_TAG, error.message);
+      }
     }
-  }
 }
 
-function SendUsrName(newName) {
-  let FUNCTION_TAG = "SendUsrName()";
+
+// sends a change username request to the peer
+function sendUsrNameReq(newName) {
+  let FUNCTION_TAG = "sendUsrNameReq()";
   if (conn) {
     try {
       conn.send(userId + ":" + "name/" + newName);
@@ -202,7 +225,7 @@ function onUserConnected() {
   connections.push(userId);
   try {
     conn = peer.connect(connections[0]);
-    createPeerMsg("Connection Successful", peerUsername);
+    createPeerMsgBubble("Connection Successful", peerUsername);
     setTimeout(connSuccess, 500);
   } catch (error) {
     console.log(error.message);
@@ -213,10 +236,13 @@ function onFileInp() {
   const reader = new FileReader();
   reader.readAsDataURL(fileInp.files[0]);
   reader.addEventListener("load", () => {
-    SendFile(reader.result);
+    sendFile(reader.result);
     fileInp.value = "";
   });
 }
+
+
+
 function processData(data) {
   let FUNCTION_TAG = "processData()";
 
@@ -226,45 +252,61 @@ function processData(data) {
   conn = peer.connect(newUserId); // connect to the peer via the default name
 
   switch (dataType) {
+    
+    case "typingIndicatorOn":
+      setTypingIndicatorBool(true)
+      break
+
+    case "typingIndicatorOff":
+      setTypingIndicatorBool(false)
+      break
     case "text":
-      createPeerMsg(
+      createPeerMsgBubble(
         data.replace(newUserId + ":", "").replace(dataType + "/", ""),
         peerUsername
       );
       log(FUNCTION_TAG, "Recieved data from " + peerUsername);
-      typing = false;
+      setTyping(false)
       break;
     case "img":
-      createPeerImg(
-        data.replace(newUserId + ":", "").replace(dataType + "/", ""),
-        peerUsername
-      );
-      typing = false;
+      if(recImages){
+        createPeerImg(
+          data.replace(newUserId + ":", "").replace(dataType + "/", ""),
+          peerUsername
+        );
+      }
+      setTyping(false)
       break;
     case "name":
-      peerUsername = data
+      setPeerUsername(data
         .replace(newUserId + ":", "")
-        .replace(dataType + "/", "");
+        .replace(dataType + "/", ""))
       break;
 
     case "typing":
-      typing = true;
-      typingMsg.innerHTML = peerUsername + " is typing...";
+      setTyping(true)
+      if (getTypingIndicatorStatus()){
+        typingMsg.innerHTML = peerUsername + " is typing...";
+        
+      }
+      else {
+        typingMsg.innerHTML = ""
+      }
       break;
 
     case "notyping":
-      typing = false;
+      setTyping(false)
       typingMsg.innerHTML = "";
       break;
     case "sysalert":
-      createSysAlert(data.replace(newUserId + ":", "").replace(dataType + "/", ""))
+      createSysAlertBubble(data.replace(newUserId + ":", "").replace(dataType + "/", ""))
   }
 }
 function messageBoxEventHandler(key) {
   if (key.keyCode == 13) {
-    typing = false;
+    setTyping(false)
     // messageBox.blur(); // this line prevents spam but its annoying for testing
-    Send();
+    sendMsg();
   }
   if (
     key.keyCode != 13 &&
@@ -284,3 +326,4 @@ function messageBoxEventHandler(key) {
     }, 1);
   }
 }
+

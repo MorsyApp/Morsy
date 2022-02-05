@@ -37,6 +37,7 @@ var connections = []; // all the peer connections to the room
 var conn = undefined; // the connection between the two peers
 let typing = false; // bool true if the peer is typing, false if notcmd
 let isMsgHyperLink = false;
+let typingIndicator = true;
 
 
 let givenAlias = false;
@@ -51,11 +52,11 @@ socket.on("user-connected", (userId) => {
   FUNCTION_TAG = "[SOCKET_EVENT] user-connected";
 
   log(FUNCTION_TAG, userId + " Joined the room");
+  
 
   connections.push(userId);
-
   conn = peer.connect(connections[0]);
-  createSysAlert("Connection Successful");
+  createSysAlertBubble("Connection Successful");
   setTimeout(connSuccess, 500);
 });
 
@@ -66,3 +67,19 @@ peer.on("connection", function (connection) {
     processData(data);
   });
 });
+
+const setItFirstTime = (isFirstTime) => firstTime = isFirstTime
+const setTyping = (isTyping) => typing = isTyping
+const setIsEditingName = (isEdit) => editingName = isEdit
+const setMsgHyperlink = (isMsgHlink) => isMsgHyperLink = isMsgHlink
+const setPeerUsername = (newPeerUsername) => peerUsername = newPeerUsername
+const setTypingIndicatorBool = (newTypingIndicator) => typingIndicator = newTypingIndicator
+
+const getIsFirstTime = () => {
+  return firstTime
+}
+const getIsTyping = () => {return typing}
+const getIsEditingName = () => {return editingName}
+const getIsMsgHyperLink = () => {return isMsgHyperLink}
+const getPeerUsername = () => {return peerUsername}
+const getTypingIndicatorStatus = () => {return typingIndicator}

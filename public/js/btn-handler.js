@@ -27,15 +27,50 @@ const typingMsg = document.querySelector(".is-typing-msg");
 const rootElmnt = document.querySelector(":root");
 const trippleDotMenu = document.querySelector(".tripple-dot-menu");
 const menuBtnContainer = document.querySelector(".menu-btn-container");
+const settingsContainer = document.querySelector(".settings-container");
+const settingsCloseBtn = document.querySelector(".settings-close-btn");
+const settingsBtn = document.querySelector(".settings-btn");
+const typingIndicatorOn = document.querySelector(".typing-indicator-on")
+const typingIndicatorOff = document.querySelector(".typing-indicator-off")
+const imagesOn = document.querySelector(".images-on");
+const imagesOff = document.querySelector(".images-off");
+const colorOptions = document.querySelectorAll(".colormode svg");
 
 
 let menuBtnContainerHover = false;
 inviteLinkBox.value = window.location.href;
 
-let colorMode = null;
+let colorMode = "default";
+let recImages = true;
+
+
+imagesOn.addEventListener("click", ()=>{
+  recImages = true;
+  imagesOn.style.backgroundColor = "var(--secondary-color)";
+  imagesOff.style.backgroundColor = "var(--menu-bar-color)";
+})
+imagesOff.addEventListener("click", ()=>{
+  recImages = false;
+  imagesOff.style.backgroundColor = "var(--secondary-color)";
+  imagesOn.style.backgroundColor = "var(--menu-bar-color)";
+})
+
+typingIndicatorOn.addEventListener("click", () => {
+  typingIndicatorOff.style.backgroundColor = "var(--menu-bar-color)";
+  typingIndicatorOn.style.backgroundColor = "var(--secondary-color)";
+  sendTypingIndicatorReq(true)
+
+})
+typingIndicatorOff.addEventListener("click", () => {
+  typingIndicatorOn.style.backgroundColor = "var(--menu-bar-color)";
+  typingIndicatorOff.style.backgroundColor = "var(--secondary-color)";
+  sendTypingIndicatorReq(false)
+  
+})
+
 
 sendBtn.addEventListener("click", () => {
-  Send();
+  sendMsg();
 });
 
 messageBox.addEventListener("keydown", (e) => {
@@ -52,7 +87,7 @@ fileInp.addEventListener("change", () => {
   const reader = new FileReader();
   reader.readAsDataURL(fileInp.files[0]);
   reader.addEventListener("load", () => {
-    SendFile(reader.result);
+    sendFile(reader.result);
     fileInp.value = "";
   });
 });
@@ -67,7 +102,7 @@ editNameBtn.addEventListener("click", () => {
     editNameBtn.innerHTML = "Edit";
     usernameInp.disabled = true;
     SendUsrName(removeTags(usernameInp.value));
-    createSysAlert("Name changed successfully!")
+    createSysAlertBubble("Name changed successfully!")
     editingName = false;
   }
 });
@@ -86,8 +121,21 @@ inviteBtn.addEventListener("click", () => {
   log(FUNCTION_TAG, "block");
 });
 
+
+colorOptions.forEach((option) => {
+  option.addEventListener("click", ()=>{
+    colorOptions.forEach((option) =>{
+      option.childNodes[3].style.fill = "none";
+    })
+    option.childNodes[3].style.fill = "var(--accent-color)";
+    console.log(option.childNodes);
+    colorMode = option.id;
+    setColors();
+  })
+})
+
 function setColors(){
-  if(!colorMode){
+  if(colorMode == "default"){
       colorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
   }
 
@@ -96,6 +144,13 @@ function setColors(){
     rootElmnt.style.setProperty("--bg-color", "#c6c6c6");
     rootElmnt.style.setProperty("--secondary-color", "#a8a8a8");
     rootElmnt.style.setProperty("--text-color", "#000000");
+  }
+
+  else{
+    rootElmnt.style.setProperty("--menu-bar-color", "#16151E");
+    rootElmnt.style.setProperty("--bg-color", "#000000");
+    rootElmnt.style.setProperty("--secondary-color", "#444352");
+    rootElmnt.style.setProperty("--text-color", "#ffffff");
   }
 }
 
@@ -110,7 +165,7 @@ trippleDotMenu.addEventListener("mouseleave", ()=>{
     if(!menuBtnContainerHover){
       menuBtnContainer.style.display = "none";
     }
-  },250)
+  },500)
   
 })
 
@@ -124,8 +179,19 @@ menuBtnContainer.addEventListener("mouseleave", ()=>{
   menuBtnContainer.style.display = "none";
 })
 
+settingsBtn.addEventListener("click", ()=>{
+  settingsContainer.style.display = "block";
+})
+
+settingsCloseBtn.addEventListener("click", ()=>{
+  settingsContainer.style.display = "none";
+})
+
 window.addEventListener("mousedown", (e) => {
   if (!invitePopup.contains(e.target) && invitePopup.style.display == "block") {
     invitePopup.style.display = "none";
+  }
+  if (!settingsContainer.contains(e.target) && settingsContainer.style.display == "block") {
+    settingsContainer.style.display = "none";
   }
 });
