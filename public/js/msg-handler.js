@@ -171,11 +171,6 @@ function connSuccess() {
   conn.send(userId + ":" + "sysalert/" + "Connection Successful");
 }
 
-function updateSettings() {
-  if(localStorage.getItem("recImages")){
-    
-  }
-}
 
 //sends the connetent of the message box and clears it
 function sendMsg() {
@@ -188,7 +183,7 @@ function sendMsg() {
       log(FUNCTION_TAG, "message sent successfully");
       createUsrMsgBubble(messageBox.value, userId);
     } else {
-      alert("Something went wrong. "); // change this to custom alert msg later
+      alert("Cant send message: you are the only one in the chat room (go to the triple dot menu and press invite to invite others)"); // change this to custom alert msg later
     }
   }
   messageBox.value = ""; // reset message box
