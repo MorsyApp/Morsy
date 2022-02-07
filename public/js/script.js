@@ -18,6 +18,7 @@ let peerHostname = "127.0.0.1";
 let peerPort = 3001;
 
 window.onload = () => {
+  setFirstTimeEmojiHelp(true)
   updateSettings()
 }
 if (window.location.host == "morsy.cc") {
@@ -31,7 +32,8 @@ const peer = new Peer(undefined, {
 });
 
 //empty variables
-let roomURL = window.location.href;
+let roomURL = window.location.href; 
+let emojiHelpMessage = ";;;possible"
 let firstTime = true; // specifies whether it is the first time that the typing mes`sa`ge is shown in order to not repeat showing the message
 let peerUsername = "Unnamed User"; // changeable. this is the default
 let editingName = false; // is the user editing the name
@@ -42,6 +44,8 @@ let typing = false; // bool true if the peer is typing, false if notcmd
 let isMsgHyperLink = false;
 let typingIndicator = true;
 let recImages = true;
+let firstTimeEmojiHelp = true
+let isFirstTimeWrongEmoji = true
 
 
 let givenAlias = false;
@@ -57,6 +61,7 @@ socket.on("user-connected", (userId) => {
 
   log(FUNCTION_TAG, userId + " Joined the room");
   
+  connections = []
 
   connections.push(userId);
   conn = peer.connect(connections[0]);
@@ -78,12 +83,17 @@ const setIsEditingName = (isEdit) => editingName = isEdit
 const setMsgHyperlink = (isMsgHlink) => isMsgHyperLink = isMsgHlink
 const setPeerUsername = (newPeerUsername) => peerUsername = newPeerUsername
 const setTypingIndicatorBool = (newTypingIndicator) => typingIndicator = newTypingIndicator
+const setFirstTimeEmojiHelp = (isFirstTime) => firstTimeEmojiHelp = isFirstTime
+const setIsFirstTimeWrongEmoji = (isFirstTime) => isFirstTimeWrongEmoji = isFirstTime
 
 const getIsFirstTime = () => {
   return firstTime
 }
 const getIsTyping = () => {return typing}
+
 const getIsEditingName = () => {return editingName}
 const getIsMsgHyperLink = () => {return isMsgHyperLink}
 const getPeerUsername = () => {return peerUsername}
 const getTypingIndicatorStatus = () => {return typingIndicator}
+const getIsFirstTimeEmojiHelp = () => {return firstTimeEmojiHelp}
+const getIsFirstTimeWrongEmoji = () => {return isFirstTimeWrongEmoji}

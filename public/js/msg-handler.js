@@ -11,22 +11,19 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 // variable that gets reassigned every time a function needs a function tag.
 
 //creates alert in the message box (For Example, "Connection Successful")
-function createSysAlertBubble(msg){
+function createSysAlertBubble(msg) {
   let alertContainer = document.createElement("div");
   let alertMsg = document.createElement("h1");
-  
+
   alertContainer.classList.add("sysalert");
   alertMsg.innerHTML = msg;
 
   alertContainer.appendChild(alertMsg);
   messageContainer.appendChild(alertContainer);
 }
-
-
 
 //creates an user message bubble with an image from the data url specified
 
@@ -56,7 +53,7 @@ function createUsrImgBubble(dataUrl, usrId) {
 function createPeerImgBubble(dataUrl, usrId) {
   let FUNCTION_TAG = "createPeerImg()";
 
-  // create html elements
+  // create html elementsf
   var msgContainer = document.createElement("div");
   var usrMsg = document.createElement("div");
   var msgImg = document.createElement("img");
@@ -78,8 +75,7 @@ function createPeerImgBubble(dataUrl, usrId) {
 // update the localStorage settings
 
 function updateSettings() {
-
-  switch(localStorage.getItem("recImages")) {
+  switch (localStorage.getItem("recImages")) {
     case "true":
       recImages = true;
       break;
@@ -94,32 +90,32 @@ function updateSettings() {
     case "true":
       typingIndicator = true;
       break;
-    
+
     case "false":
       typingIndicator = false;
-      break
+      break;
 
     default:
       typingIndicator = true;
       break;
-    
   }
-  switch(localStorage.getItem("colorMode")) {
+  switch (localStorage.getItem("colorMode")) {
     case "dark":
-      colorMode = "dark"
-      break
-    case "light":
-      colorMode = "light"
-      break
-    default:
-      colorMode = "default"
+      colorMode = "dark";
       break;
-
-    
+    case "light":
+      colorMode = "light";
+      break;
+    default:
+      colorMode = "default";
+      break;
   }
-  updateButtonColours()
-  updateThemeColours()
-  log("updateSettings()", `set typing indicator to ${typingIndicator}, set recimages to ${recImages}, colorMode: ${colorMode}`)
+  updateButtonColours();
+  updateThemeColours();
+  log(
+    "updateSettings()",
+    `set typing indicator to ${typingIndicator}, set recimages to ${recImages}, colorMode: ${colorMode}`
+  );
 }
 
 //creates user message bubble
@@ -139,9 +135,9 @@ function createUsrMsgBubble(msg, usrId) {
     if (msgPart.includes("://") && msgPart.includes(".")) {
       fullMsg +=
         '<a href="' + msgPart + '" target="_blank">' + msgPart + "</a> ";
-      setMsgHyperlink(true)
+      setMsgHyperlink(true);
     } else {
-      setMsgHyperlink(false)
+      setMsgHyperlink(false);
       fullMsg += msgPart + " ";
     }
   });
@@ -164,9 +160,8 @@ function sendTypingIndicatorReq(val) {
   if (conn) {
     try {
       if (val) {
-        conn.send(userId + ":" + "typingIndicatorOn/" );
-      }
-      else {
+        conn.send(userId + ":" + "typingIndicatorOn/");
+      } else {
         conn.send(userId + ":" + "typingIndicatorOff/");
       }
 
@@ -217,19 +212,40 @@ function connSuccess() {
   conn.send(userId + ":" + "sysalert/" + "Connection Successful");
 }
 
-
 //sends the connetent of the message box and clears it
 function sendMsg() {
   let FUNCTION_TAG = "sendMsg()";
 
   if (messageBox.value != "") {
     if (conn) {
+      if (messageBox.value == ";;;possible" && getIsFirstTimeEmojiHelp()) {
+        createSysAlertBubble(textToEmojiIcon(";;;possible"));
+        messageBox.value = "";
+        setFirstTimeEmojiHelp(false);
+        return;
+      }
+      if (messageBox.value.startsWith(";") && textToEmojiIcon(messageBox.value) == "No such emoji exists.") {
+        if (getIsFirstTimeWrongEmoji()) {
+          createSysAlertBubble(textToEmojiIcon("digga"));
+          setIsFirstTimeWrongEmoji(false);
+          messageBox.value = "";
+          return;
+        }
+      }
       log(FUNCTION_TAG, `Sent from: ${userId}`);
       conn.send(userId + ":" + "text/" + messageBox.value);
       log(FUNCTION_TAG, "message sent successfully");
-      createUsrMsgBubble(messageBox.value, userId);
+
+      toShow = messageBox.value
+
+      if (textToEmojiIcon(messageBox.value) != "No such emoji exists." && messageBox.value != ";;;possible") {
+        toShow = textToEmojiIcon(messageBox.value)
+      }
+      createUsrMsgBubble(toShow, userId);
     } else {
-      alert("Cant send message: you are the only one in the chat room (go to the triple dot menu and press invite to invite others)"); // change this to custom alert msg later
+      alert(
+        "Cant send message: you may be only one in the chat room (go to the triple dot menu and press invite to invite others)"
+      ); // change this to custom alert msg later
     }
   }
   messageBox.value = ""; // reset message box
@@ -238,16 +254,15 @@ function sendMsg() {
 //sends the dataurl for images
 function sendFile(dataUrl) {
   let FUNCTION_TAG = "sendFile()";
-    if (conn) {
-      try {
-        conn.send(userId + ":" + "img/" + dataUrl);
-        createUsrImgBubble(dataUrl, "Me");
-      } catch (error) {
-        log(FUNCTION_TAG, error.message);
-      }
+  if (conn) {
+    try {
+      conn.send(userId + ":" + "img/" + dataUrl);
+      createUsrImgBubble(dataUrl, "Me");
+    } catch (error) {
+      log(FUNCTION_TAG, error.message);
     }
+  }
 }
-
 
 // sends a change username request to the peer
 function sendUsrNameReq(newName) {
@@ -262,20 +277,6 @@ function sendUsrNameReq(newName) {
   }
 }
 
-function onUserConnected() {
-  let FUNCTION_TAG = "onUserConnected()";
-
-  log(FUNCTION_TAG, userId + " Joined the room");
-  connections.push(userId);
-  try {
-    conn = peer.connect(connections[0]);
-    createPeerMsgBubble("Connection Successful", peerUsername);
-    setTimeout(connSuccess, 500);
-  } catch (error) {
-    console.log(error.message);
-  }
-}
-
 function onFileInp() {
   const reader = new FileReader();
   reader.readAsDataURL(fileInp.files[0]);
@@ -285,8 +286,6 @@ function onFileInp() {
   });
 }
 
-
-
 function processData(data) {
   let FUNCTION_TAG = "processData()";
 
@@ -294,61 +293,65 @@ function processData(data) {
   let newUserId = processedData.substring(0, processedData.indexOf(":"));
   let dataType = processedData.replace(newUserId + ":", "");
   conn = peer.connect(newUserId); // connect to the peer via the default name
+  conn.serialization = "binary-utf8";
 
   switch (dataType) {
-    
     case "typingIndicatorOn":
-      setTypingIndicatorBool(true)
-      break
+      setTypingIndicatorBool(true);
+      break;
 
     case "typingIndicatorOff":
-      setTypingIndicatorBool(false)
-      break
+      setTypingIndicatorBool(false);
+      break;
     case "text":
-      createPeerMsgBubble(
-        data.replace(newUserId + ":", "").replace(dataType + "/", ""),
-        peerUsername
-      );
+      let text = data.replace(newUserId + ":", "").replace(dataType + "/", "");
+      console.log(text)
+
+      if (textToEmojiIcon(text) != "No such emoji exists." && text != ";;;possible") {
+        text = textToEmojiIcon(text)
+      }
+
+      createPeerMsgBubble(text, peerUsername);
       log(FUNCTION_TAG, "Recieved data from " + peerUsername);
-      setTyping(false)
+      setTyping(false);
       break;
     case "img":
-      if(recImages){
+      if (recImages) {
         createPeerImgBubble(
           data.replace(newUserId + ":", "").replace(dataType + "/", ""),
           peerUsername
         );
       }
-      setTyping(false)
+      setTyping(false);
       break;
     case "name":
-      setPeerUsername(data
-        .replace(newUserId + ":", "")
-        .replace(dataType + "/", ""))
+      setPeerUsername(
+        data.replace(newUserId + ":", "").replace(dataType + "/", "")
+      );
       break;
 
     case "typing":
-      setTyping(true)
-      if (getTypingIndicatorStatus()){
+      setTyping(true);
+      if (getTypingIndicatorStatus()) {
         typingMsg.innerHTML = peerUsername + " is typing...";
-        
-      }
-      else {
-        typingMsg.innerHTML = ""
+      } else {
+        typingMsg.innerHTML = "";
       }
       break;
 
     case "notyping":
-      setTyping(false)
+      setTyping(false);
       typingMsg.innerHTML = "";
       break;
     case "sysalert":
-      createSysAlertBubble(data.replace(newUserId + ":", "").replace(dataType + "/", ""))
+      createSysAlertBubble(
+        data.replace(newUserId + ":", "").replace(dataType + "/", "")
+      );
   }
 }
 function messageBoxEventHandler(key) {
   if (key.keyCode == 13) {
-    setTyping(false)
+    setTyping(false);
     // messageBox.blur(); // this line prevents spam but its annoying for testing
     sendMsg();
   }
@@ -370,4 +373,3 @@ function messageBoxEventHandler(key) {
     }, 1);
   }
 }
-

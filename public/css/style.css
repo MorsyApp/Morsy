@@ -137,6 +137,14 @@ body{
     border-radius: 0.4vh;
     background-color: var(--accent-color);
 }
+h3.emoji-help-command {
+    color: var(--text-color);
+    font-family: monospace;
+}
+h3.emoji-help-command-message {
+    color: var(--text-color);
+    
+}
 
 .settings-container {
     display: none;
@@ -145,7 +153,7 @@ body{
     left: 50%;
     width:80vh;
     max-width: 90%;
-    height:50vh;
+    height:53vh;
     max-height: 90%;
     transform: translate(-50%, -50%);
     background-color: var(--menu-bar-color);
@@ -458,6 +466,12 @@ body{
     top: 50%;
     right: 9vh;
     transform: translateY(-50%);
+}
+.emoji-picker {
+    position: absolute;
+    height: 2.2vh;
+    top: 25%;
+    right: 11.8vh;
 }
 
 .sysalert{

@@ -24,10 +24,12 @@ You should have received a copy of the GNU General Public License along with Mor
       src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"
       defer
     ></script>
+    
     <script>
       const ROOM_ID = "<%= roomId  %>"
     </script>
     <script src="/socket.io/socket.io.js" defer></script>
+    <script src="/js/emoji-handler.js"></script>
     <script src="/js/script.js" defer></script>
     <script src="/js/btn-handler.js" defer></script>
     <script src="/js/verbose-func.js" defer></script>
@@ -91,6 +93,9 @@ You should have received a copy of the GNU General Public License along with Mor
       <div class="image-switch switch">
         <a class="images-on">ON</a> <a class="images-off">OFF</a>
       </div>
+      <h1>Emoji Help Message</h1>
+      <h3 class="emoji-help-command"><code style="font-family: 'Courier New', Courier, monospace;">';;;possible'</code></h3>
+      <h3 class="emoji-help-command-message">Use the above command in the chat to get a list of all possible emojis to send!</h3>
       <svg class="settings-close-btn" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.000244141" y="3.83871" width="5.41189" height="35.5834" rx="2.70595" transform="rotate(-45 0.000244141 3.83871)" fill="#695CBC"/>
         <rect x="25.1614" width="5.1" height="35.5834" rx="2.55" transform="rotate(45 25.1614 0)" fill="#695CBC"/>
@@ -144,6 +149,8 @@ You should have received a copy of the GNU General Public License along with Mor
          
             
           <input class="file-input" type="file" name="name" style="display: none"/>
+          
+        
       </div>
 
       <div class="message-container">
