@@ -11,7 +11,7 @@ Morsy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANT
 You should have received a copy of the GNU General Public License along with Morsy. If not, see <https://www.gnu.org/licenses/>.
 */
 
-
+// html references 
 
 const sendBtn = document.querySelector(".send-container");
 const messageBox = document.querySelector(".message-box");
@@ -27,7 +27,7 @@ const invitePopup = document.querySelector(".invite-popup");
 const inviteBtn = document.querySelector(".invite-btn");
 const typingMsg = document.querySelector(".is-typing-msg");
 const rootElmnt = document.querySelector(":root");
-const trippleDotMenu = document.querySelector(".tripple-dot-menu");
+const tripleDotMenu = document.querySelector(".triple-dot-menu");
 const menuBtnContainer = document.querySelector(".menu-btn-container");
 const settingsContainer = document.querySelector(".settings-container");
 const settingsCloseBtn = document.querySelector(".settings-close-btn");
@@ -45,7 +45,25 @@ inviteLinkBox.value = window.location.href;
 let colorMode = "default";
 
 
-let recImages = true;
+function updateButtonColours() {
+  if (recImages) {
+    imagesOn.style.backgroundColor = "var(--secondary-color)";
+    imagesOff.style.backgroundColor = "var(--menu-bar-color)";
+  }
+  else {
+    imagesOff.style.backgroundColor = "var(--secondary-color)";
+    imagesOn.style.backgroundColor = "var(--menu-bar-color)";
+  }
+  if (typingIndicator) {
+    typingIndicatorOff.style.backgroundColor = "var(--menu-bar-color)";
+    typingIndicatorOn.style.backgroundColor = "var(--secondary-color)";
+  }
+  else {
+    typingIndicatorOn.style.backgroundColor = "var(--menu-bar-color)";
+    typingIndicatorOff.style.backgroundColor = "var(--secondary-color)";
+  }
+}
+
 
 
 
@@ -55,20 +73,27 @@ imagesOn.addEventListener("click", ()=>{
   imagesOn.style.backgroundColor = "var(--secondary-color)";
   imagesOff.style.backgroundColor = "var(--menu-bar-color)";
   localStorage.setItem("recImages","true");
+
+  updateSettings()
+  
 })
 imagesOff.addEventListener("click", ()=>{
   recImages = false;
   localStorage.setItem("recImages","false");
   imagesOff.style.backgroundColor = "var(--secondary-color)";
   imagesOn.style.backgroundColor = "var(--menu-bar-color)";
+
+  updateSettings()
 })
 
 typingIndicatorOn.addEventListener("click", () => {
   typingIndicatorOff.style.backgroundColor = "var(--menu-bar-color)";
   typingIndicatorOn.style.backgroundColor = "var(--secondary-color)";
   localStorage.setItem("showTyping","true");
+
   sendTypingIndicatorReq(true)
 
+  updateSettings()
 
 })
 typingIndicatorOff.addEventListener("click", () => {
@@ -76,6 +101,8 @@ typingIndicatorOff.addEventListener("click", () => {
   typingIndicatorOff.style.backgroundColor = "var(--secondary-color)";
   localStorage.setItem("showTyping","false");
   sendTypingIndicatorReq(false)
+
+  updateSettings()
 
   
 })
@@ -137,6 +164,7 @@ inviteBtn.addEventListener("click", () => {
 
 colorOptions.forEach((option) => {
   option.addEventListener("click", ()=>{
+    
     colorOptions.forEach((option) =>{
       option.childNodes[3].style.fill = "none";
     })
@@ -144,11 +172,13 @@ colorOptions.forEach((option) => {
     console.log(option.childNodes);
     colorMode = option.id;
     localStorage.setItem("colorMode",option.id);
-    setColors();
+    updateSettings()
+    updateThemeColours();
   })
 })
 
-function setColors(){
+
+function updateThemeColours(){
   if(colorMode == "default"){
       colorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
   }
@@ -170,11 +200,11 @@ function setColors(){
 
 
 
-trippleDotMenu.addEventListener("mouseenter", ()=>{
+tripleDotMenu.addEventListener("mouseenter", ()=>{
   menuBtnContainer.style.display = "flex";
 })
 
-trippleDotMenu.addEventListener("mouseleave", ()=>{
+tripleDotMenu.addEventListener("mouseleave", ()=>{
   setTimeout(()=>{
     if(!menuBtnContainerHover){
       menuBtnContainer.style.display = "none";
@@ -210,4 +240,7 @@ window.addEventListener("mousedown", (e) => {
   }
 });
 
-setColors();
+let interval = setInterval(updateButtonColours, 10)
+
+
+updateThemeColours();

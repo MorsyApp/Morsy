@@ -42,8 +42,7 @@ body{
 .is-typing-msg {
     color: var(--text-color); /* change positioning later*/
     position: fixed;
-    font-size: 14
-    px;
+    font-size: 11.5px;
     top: 93.7069%;
     left: 50%;
     
@@ -103,7 +102,7 @@ body{
     background-color: var(--secondary-color);
 }
 
-.tripple-dot-menu {
+.triple-dot-menu {
     position: absolute;
     top: 50%;
     right: 2vh;
@@ -111,7 +110,7 @@ body{
     height: 3vh;
 }
 
-.tripple-dot-menu circle{
+.triple-dot-menu circle{
     fill: var(--text-color);
 }
 

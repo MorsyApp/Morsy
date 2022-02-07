@@ -30,7 +30,7 @@ function createSysAlertBubble(msg){
 
 //creates an user message bubble with an image from the data url specified
 
-function createUsrImg(dataUrl, usrId) {
+function createUsrImgBubble(dataUrl, usrId) {
   let FUNCTION_TAG = "createUsrImg()";
 
   //create html elements
@@ -53,7 +53,7 @@ function createUsrImg(dataUrl, usrId) {
 }
 
 //creates a peer message bubble with an image from the data url specified
-function createPeerImg(dataUrl, usrId) {
+function createPeerImgBubble(dataUrl, usrId) {
   let FUNCTION_TAG = "createPeerImg()";
 
   // create html elements
@@ -75,6 +75,52 @@ function createPeerImg(dataUrl, usrId) {
   msgContainer.scrollIntoView();
 }
 
+// update the localStorage settings
+
+function updateSettings() {
+
+  switch(localStorage.getItem("recImages")) {
+    case "true":
+      recImages = true;
+      break;
+    case "false":
+      recImages = false;
+      break;
+    default:
+      recImages = true;
+      break;
+  }
+  switch (localStorage.getItem("showTyping")) {
+    case "true":
+      typingIndicator = true;
+      break;
+    
+    case "false":
+      typingIndicator = false;
+      break
+
+    default:
+      typingIndicator = true;
+      break;
+    
+  }
+  switch(localStorage.getItem("colorMode")) {
+    case "dark":
+      colorMode = "dark"
+      break
+    case "light":
+      colorMode = "light"
+      break
+    default:
+      colorMode = "default"
+      break;
+
+    
+  }
+  updateButtonColours()
+  updateThemeColours()
+  log("updateSettings()", `set typing indicator to ${typingIndicator}, set recimages to ${recImages}, colorMode: ${colorMode}`)
+}
 
 //creates user message bubble
 function createUsrMsgBubble(msg, usrId) {
@@ -195,7 +241,7 @@ function sendFile(dataUrl) {
     if (conn) {
       try {
         conn.send(userId + ":" + "img/" + dataUrl);
-        createUsrImg(dataUrl, "Me");
+        createUsrImgBubble(dataUrl, "Me");
       } catch (error) {
         log(FUNCTION_TAG, error.message);
       }
@@ -268,7 +314,7 @@ function processData(data) {
       break;
     case "img":
       if(recImages){
-        createPeerImg(
+        createPeerImgBubble(
           data.replace(newUserId + ":", "").replace(dataType + "/", ""),
           peerUsername
         );

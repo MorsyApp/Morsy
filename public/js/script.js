@@ -17,6 +17,9 @@ const socket = io("/");
 let peerHostname = "127.0.0.1";
 let peerPort = 3001;
 
+window.onload = () => {
+  updateSettings()
+}
 if (window.location.host == "morsy.cc") {
   peerHostname = "peer.morsy.cc";
   peerPort = 443;
@@ -38,6 +41,7 @@ var conn = undefined; // the connection between the two peers
 let typing = false; // bool true if the peer is typing, false if notcmd
 let isMsgHyperLink = false;
 let typingIndicator = true;
+let recImages = true;
 
 
 let givenAlias = false;
