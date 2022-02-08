@@ -9,5 +9,5 @@ Pre-alpha comming soon
 
 |Person| Email | 
 --- | --- 
-|Carl Marino| cm@carlmarino.tech |
+|Carl Marino| carl@ccm.me |
 |Itay Godasevich| itay.cyber@protonmail.com |
