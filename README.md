@@ -3,7 +3,7 @@
 ## More Decentralized, More Private, Morsy
 
 
-Pre-alpha comming soon
+
 
 # Contact Us
 
