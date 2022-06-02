@@ -1,5 +1,6 @@
-<a href="https://morsy.cc"><img src="https://github.com/MorsyApp/Morsy/blob/main/morsy.png?raw=true" width="500"/></a>
 
+
+[image](https://github.com/MorsyApp/Morsy/blob/main/morsy%20full.png?raw=true)
 ## More Decentralized, More Private, Morsy
 
 
