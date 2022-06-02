@@ -92,6 +92,7 @@ body{
 }
 
 .create-btn {
+    cursor: default;
     position: absolute;
     height: 5vh;
     width: fit-content;
@@ -111,6 +112,7 @@ body{
 }
 
 .invite-btn {
+    cursor: default;
     position: absolute;
     height: 5vh;
     width: fit-content;
