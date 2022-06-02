@@ -17,12 +17,13 @@ You should have received a copy of the GNU General Public License along with Mor
 }
 
 :root{
-    --menu-bar-color: #16151E;
-    --bg-color: #000000; 
-    --secondary-color: #444352;
-    --accent-color: #695CBC;
-    --accent-dim: #534599;
+    --menu-bar-color: #2A2C3D;
+    --bg-color: #2A2C3D; 
+    --secondary-color: #2A2C3D;
+    --accent-color: #9F3FFF;
+    --accent-dim: #7335b1;
     --text-color: #ffffff;
+    --shadow-color: #464A68;
 }
 
 *{
@@ -345,6 +346,7 @@ h3.emoji-help-command-message {
     border: none;
     background-color: var(--secondary-color);
     margin-left: 1vh;
+    box-shadow: 8px 8px 50px var(--shadow-color);
 }
 
 .inp-container{
@@ -399,8 +401,9 @@ h3.emoji-help-command-message {
     background-color: var(--accent-color);
     padding: 1vh 2vh;
     border-radius: 1.5vh;
-    color: var(--text-color);
+    color: #ffffff;
     text-align: right;
+    box-shadow: 8px 8px 50px var(--shadow-color);
 }
 
 .usr-msg p{
@@ -432,6 +435,7 @@ h3.emoji-help-command-message {
     border-radius: 1.5vh;
     color: var(--text-color);
     text-align: left;
+    box-shadow: 8px 8px 50px var(--shadow-color);
 }
 
 .peer-msg p{
