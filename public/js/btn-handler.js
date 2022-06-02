@@ -186,33 +186,12 @@ function updateThemeColours() {
   }
 }
 
-tripleDotMenu.addEventListener("mouseenter", () => {
-  menuBtnContainer.style.display = "flex";
-});
-
-tripleDotMenu.addEventListener("mouseleave", () => {
-  setTimeout(() => {
-    if (!menuBtnContainerHover) {
-      menuBtnContainer.style.display = "none";
-    }
-  }, 500);
-});
-
-menuBtnContainer.addEventListener("mouseenter", () => {
-  menuBtnContainerHover = true;
-  menuBtnContainer.style.display = "flex";
-});
-
-menuBtnContainer.addEventListener("mouseleave", () => {
-  menuBtnContainerHover = false;
-  menuBtnContainer.style.display = "none";
-});
 
 settingsBtn.addEventListener("click", () => {
   settingsContainer.style.display = "block";
 });
 
-settingsCloseBtn.addEventListener("click", () => {
+settingsCloseBtn.addEventListener("mousedown", () => {
   settingsContainer.style.display = "none";
 });
 

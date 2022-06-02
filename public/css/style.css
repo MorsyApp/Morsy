@@ -55,7 +55,8 @@ body{
     left: 0;
     background-color: var(--menu-bar-color);
     width: 100%;
-    height:6vh;
+    height:7vh;
+    z-index: 10;
 }
 
 .logo{
@@ -67,53 +68,67 @@ body{
     width: fit-content;
 }
 
-.logo path:nth-child(6), path:nth-child(7),path:nth-child(8),path:nth-child(9),path:nth-child(10){
-    fill: var(--text-color) !important;
-}
-
-.menu-btn-container{
+.settings-btn {
     position: absolute;
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    background: var(--menu-bar-color);
-    top: 6.5vh;
-    right: 2vh;
-    width: 10vh;
-    height: fit-content;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-    border-radius: 0.5vh;
-    z-index: 1000;
-}
-
-.menu-btn-container a{
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 1vh 2vh;
-    width: 90%;
-    border-radius: 0.4vh;
-    cursor: default;
-    text-align: center;
-}
-
-.menu-btn-container a:hover{
+    width: 5vh;
+    height: 5vh;
+    border-radius: 1vh;
     background-color: var(--secondary-color);
+    box-shadow: 0vh -1vh 5vh var(--shadow-color);
+    right: 1vh;
+    top: 1vh;
 }
 
-.triple-dot-menu {
+.settings-btn svg {
     position: absolute;
     top: 50%;
-    right: 2vh;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 3vh;
     height: 3vh;
 }
-
-.triple-dot-menu circle{
-    fill: var(--text-color);
+.settings-btn svg path{
+    stroke: var(--text-color);
 }
+
+.create-btn {
+    position: absolute;
+    height: 5vh;
+    width: fit-content;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    border-radius: 1vh;
+    font-size: 2.5vh;
+    color: var(--text-color);
+    top: 1vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    right: 8vh;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    box-shadow: 0vh -1vh 5vh var(--shadow-color);
+}
+
+.invite-btn {
+    position: absolute;
+    height: 5vh;
+    width: fit-content;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    border-radius: 1vh;
+    font-size: 2.5vh;
+    color: var(--text-color);
+    top: 1vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    right: 21vh;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    box-shadow: 0vh -1vh 5vh var(--shadow-color);
+}
+
 
 
 .username {
@@ -346,7 +361,7 @@ h3.emoji-help-command-message {
     border: none;
     background-color: var(--secondary-color);
     margin-left: 1vh;
-    box-shadow: 8px 8px 50px var(--shadow-color);
+    box-shadow: 1vh 1vh 5vh var(--shadow-color);
 }
 
 .inp-container{
@@ -403,7 +418,7 @@ h3.emoji-help-command-message {
     border-radius: 1.5vh;
     color: #ffffff;
     text-align: right;
-    box-shadow: 8px 8px 50px var(--shadow-color);
+    box-shadow: 1vh 1vh 5vh var(--shadow-color);
 }
 
 .usr-msg p{
@@ -435,7 +450,7 @@ h3.emoji-help-command-message {
     border-radius: 1.5vh;
     color: var(--text-color);
     text-align: left;
-    box-shadow: 8px 8px 50px var(--shadow-color);
+    box-shadow: 1vh 1vh 5vh var(--shadow-color);
 }
 
 .peer-msg p{
@@ -496,3 +511,4 @@ h3.emoji-help-command-message {
     font-size: 2vh;
 
 }
+
