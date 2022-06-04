@@ -1,5 +1,5 @@
 /*
-Copyright 2021,2022 Carl Marino and Itay Godasevich 
+Copyright 2021,2022 Carl Marino and Itay Godasevich
 
 
 This file is part of Morsy.
@@ -178,11 +178,11 @@ function updateThemeColours() {
     rootElmnt.style.setProperty("--text-color", "#000000");
     rootElmnt.style.setProperty("--shadow-color", "#BBC6ED");
   } else {
-    rootElmnt.style.setProperty("--menu-bar-color", "#2A2C3D");
-    rootElmnt.style.setProperty("--bg-color", "#2A2C3D");
-    rootElmnt.style.setProperty("--secondary-color", "#2A2C3D");
+    rootElmnt.style.setProperty("--menu-bar-color", "#171821");
+    rootElmnt.style.setProperty("--bg-color", "#171821");
+    rootElmnt.style.setProperty("--secondary-color", "#171821");
     rootElmnt.style.setProperty("--text-color", "#ffffff");
-    rootElmnt.style.setProperty("--shadow-color", "#464A68");
+    rootElmnt.style.setProperty("--shadow-color", "#212338");
   }
 }
 

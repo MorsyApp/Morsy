@@ -1,5 +1,5 @@
 /*
-Copyright 2021,2022 Carl Marino and Itay Godasevich 
+Copyright 2021,2022 Carl Marino and Itay Godasevich
 
 
 This file is part of Morsy.
@@ -17,13 +17,13 @@ You should have received a copy of the GNU General Public License along with Mor
 }
 
 :root{
-    --menu-bar-color: #2A2C3D;
-    --bg-color: #2A2C3D; 
-    --secondary-color: #2A2C3D;
+    --menu-bar-color: #171821;
+    --bg-color: #171821;
+    --secondary-color: #171821;
     --accent-color: #9F3FFF;
     --accent-dim: #7335b1;
     --text-color: #ffffff;
-    --shadow-color: #464A68;
+    --shadow-color: #212338;
 }
 
 *{
@@ -46,7 +46,7 @@ body{
     font-size: 11.5px;
     top: 93.7069%;
     left: 50%;
-    
+
 
 }
 .top-bar{
@@ -161,7 +161,7 @@ h3.emoji-help-command {
 }
 h3.emoji-help-command-message {
     color: var(--text-color);
-    
+
 }
 
 .settings-container {
@@ -287,7 +287,7 @@ h3.emoji-help-command-message {
     background-color: var(--accent-color);
     right: 4.4vh;
     top: 0;
-    border-radius: 0vh 0.5vh 0.5vh 0vh; 
+    border-radius: 0vh 0.5vh 0.5vh 0vh;
     display: flex;
     vertical-align: middle;
     align-items: center;
@@ -325,7 +325,7 @@ h3.emoji-help-command-message {
     top: 1vh;
     right: 1vh;
     height: 2.5vh;
-    
+
 }
 
 .invite-close-btn rect{
@@ -513,4 +513,3 @@ h3.emoji-help-command-message {
     font-size: 2vh;
 
 }
-
