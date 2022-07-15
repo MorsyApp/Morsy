@@ -19,11 +19,11 @@ You should have received a copy of the GNU General Public License along with Mor
 :root{
     --menu-bar-color: #171821;
     --bg-color: #171821;
-    --secondary-color: #171821;
+    --secondary-color: #242530;
     --accent-color: #9F3FFF;
     --accent-dim: #7335b1;
     --text-color: #ffffff;
-    --shadow-color: #212338;
+    --shadow-color: #21233800;
 }
 
 *{
@@ -39,6 +39,7 @@ body{
     width:100%;
     height: 100%;
 }
+
 
 .is-typing-msg {
     color: var(--text-color); /* change positioning later*/
@@ -216,6 +217,11 @@ h3.emoji-help-command-message {
 .settings-container .colormode svg{
     height: 3vh;
 }
+
+.settings-container .colormode svg circle:nth-child(1){
+    stroke: var(--text-color);
+}
+
 
 .settings-container .colormode svg circle:nth-child(2){
     fill: none;
@@ -488,6 +494,11 @@ h3.emoji-help-command-message {
     right: 9vh;
     transform: translateY(-50%);
 }
+
+.file-btn path{	
+    stroke: var(--text-color);
+}
+
 .emoji-picker {
     position: absolute;
     height: 2.2vh;
@@ -513,3 +524,17 @@ h3.emoji-help-command-message {
     font-size: 2vh;
 
 }
+
+::-webkit-scrollbar {
+  width:1.2vh;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFFFF00;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 1000vh;
+}
+
