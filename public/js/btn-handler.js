@@ -174,15 +174,15 @@ function updateThemeColours() {
   if (colorMode == "light") {
     rootElmnt.style.setProperty("--menu-bar-color", "#ffffff");
     rootElmnt.style.setProperty("--bg-color", "#ffffff");
-    rootElmnt.style.setProperty("--secondary-color", "#ffffff");
+    rootElmnt.style.setProperty("--secondary-color", "#E7E8F3");
     rootElmnt.style.setProperty("--text-color", "#000000");
-    rootElmnt.style.setProperty("--shadow-color", "#BBC6ED");
+    rootElmnt.style.setProperty("--shadow-color", "#BBC6ED00");
   } else {
     rootElmnt.style.setProperty("--menu-bar-color", "#171821");
     rootElmnt.style.setProperty("--bg-color", "#171821");
-    rootElmnt.style.setProperty("--secondary-color", "#171821");
+    rootElmnt.style.setProperty("--secondary-color", "#242530");
     rootElmnt.style.setProperty("--text-color", "#ffffff");
-    rootElmnt.style.setProperty("--shadow-color", "#212338");
+    rootElmnt.style.setProperty("--shadow-color", "#21233800");
   }
 }
 
