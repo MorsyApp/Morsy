@@ -25,107 +25,37 @@ You should have received a copy of the GNU General Public License along with Mor
 }
 
 body{
-    background-color: #131B36;}
-
-
-.waves{
-    top: 1vh;
-    width: 100%;
-}
-
-.site-bottom-container{
-    position: absolute;
-    top: calc(30% + 30vh);
-    width: 100%;
-    height: fit-content;
-}
-
-.info-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: -1vh;
-    width:100%;
-    height: fit-content;
-    background-color:#695CBC;
-}
-
-.txt-container{
-    width: 30vh;
-    color: #ffffff;
-    border: 0.1vh solid #ffffff;
-    padding: 2vh;
-    border-radius: 1vh;
-    height: 37vh;
-    margin-bottom: 3vh;
-}
-
-.txt-container h1{
-    margin-bottom: 2vh;
-    font-size: 3vh;
-}
-
-.txt-container p{
-    font-size: 1.7vh;
-}
-
-.morsy-logo{
-    position: absolute;
-    width: 60vh;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-
-.logo-txt{
-    position: absolute;
-    color: #FFFFFF;
-    top: calc(30% + 13vh);
-    left: 50%;
-    width: 60vh;
-    text-align: center;
-    transform: translate(-50%,-50%);
-    font-size: 3.5vh;
-    display: inline;
-}
-
-a{
-    text-decoration: none;
-    color: #FFFFFF;
-    padding: 1.7vh 4vh;
-    background-color: #695CBC;
-    border-radius: 1vh;
-    font-size: 2vh;
-}
-
-.github{
-    position: absolute;
-    top: calc(30% + 25vh);
-    left: calc(50% + 15vh);
-    transform: translate(-50%,-50%);
+    background-color: #FFFFFF;
 
 }
 
-.create-room{
-    position: absolute;
-    top: calc(30% + 25vh);
-    left: calc(50% - 15vh);
-    transform: translate(-50%,-50%);
-
+.menu-bar{
+	position: fixed;
+	background-color: #FFFFFF;
+	height: 10vh;
+	width: 100%;
+	top:0;
+	left:0;
 }
 
-.copyright-txt {
-    text-align: center;
-    width: 100%;
-    font-size: 2vh;
-    color: #ffffff;
+.menu-bar .logo{
+	position: absolute;
+	height: 100%;
+	left: 0;
 }
 
-
-
-@media screen and (max-width: 70vh){
-    .morsy-logo{
-        width: 100%;
-    }
+.menu-bar .menu-text{
+	position: absolute;
+	width: fit-content;
+	right: 0;
+	display: flex;
+	align-items: center;
+	height: 100%;
 }
+
+.menu-bar .menu-text a {
+	color: #000000;
+	text-decoration: none;
+	padding: 3vh 2vh;
+}
+
