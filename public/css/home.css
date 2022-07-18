@@ -158,4 +158,20 @@ body{
 	margin-right: 10%;
 }
 
+.copyleft-container{
+	width: 100vw;
+	height: 20vh;
+	background-color: #9F3FFF;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.copyleft-container h1, .copyleft-container a{
+	color: #ffffff;
+	font-size: 3vh;
+	width: 100vw;
+	text-align: center;
+	margin-top: 3vh;
+}
 
