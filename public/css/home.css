@@ -27,7 +27,7 @@ You should have received a copy of the GNU General Public License along with Mor
 
 body{
     background-color: #FFFFFF;
-
+    overflow-x: hidden;
 }
 
 .menu-bar{
@@ -85,6 +85,7 @@ body{
 	height: 100vh;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -114,12 +115,14 @@ body{
 	height: 100vh;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 }
 
 .main-text {
 	width: 40%;
+	min-width: 50vh;
 	height: fit-content;
 	margin-left: 3%;
 }
@@ -138,3 +141,21 @@ body{
 	max-width: 40%;
 	margin-right: 10%;
 }
+
+.oss-container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.oss-container .oss-icon{
+	width: 60vh;
+	max-width: 40%;
+	margin-right: 10%;
+}
+
+
