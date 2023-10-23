@@ -14,16 +14,12 @@ You should have received a copy of the GNU General Public License along with Mor
 ///vars
 const socket = io("/");
 
-let peerHostname = "127.0.0.1";
-let peerPort = 3001;
+let peerHostname = "0.peerjs.com";
+let peerPort = 443;
 
 window.onload = () => {
   setFirstTimeEmojiHelp(true)
   updateSettings()
-}
-if (window.location.host == "morsy.cc") {
-  peerHostname = "peer.morsy.cc";
-  peerPort = 443;
 }
 
 const peer = new Peer(undefined, {
